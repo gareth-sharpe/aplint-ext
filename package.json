@@ -8,11 +8,17 @@
  "main": "dist/index.js",
  "scripts": {
   "vscode:prepublish": "npm run compile",
-  "compile": "tsc -p ./",
+  "compile": "tsc -p ./ && npm run readme",
   "lint": "tslint -p ./",
   "watch": "tsc -watch -p ./",
-  "package": "vsce package"
+  "package": "vsce package",
+  "move": "cp README.md ./dist/README.md && cp -R assets ./dist/assets"
  },
+ "keywords": [
+  "Salesforce",
+  "Apex",
+  "Visualforce"
+],
  "bugs": {
   "url": "https://github.com/gareth-sharpe/aplint-ext/issues",
   "email": "gareth_sharpe@manulife.com"
@@ -25,10 +31,7 @@
   "vscode": "^1.34.0"
  },
  "activationEvents": [
-  "onLanguage:apex",
-  "onLanguage:visualforce",
-  "onCommand:extension.APLint:Run",
-  "onCommand:extension.APLint:ClearProblems"
+  "*"
  ],
  "contributes": {
   "commands": [
@@ -40,6 +43,30 @@
     "command": "extension.APLint:ClearProblems",
     "title": "APLint: Clear Problems"
    }
+  ],
+  "languages": [
+    {
+        "id": "apex",
+        "extensions": [
+            ".apxc",
+            ".cls",
+            ".trigger"
+        ],
+        "aliases": [
+            "Apex"
+        ]
+    },
+    {
+        "id": "visualforce",
+        "extensions": [
+            ".page",
+            ".component"
+        ],
+        "aliases": [
+            "VisualForce",
+            "Visualforce"
+        ]
+    }
   ]
  },
  "galleryBanner": {

@@ -16,11 +16,9 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   let data: string = '';
   data = await new Promise((resolve, reject) => {
     process.stdout!.on('data', (line) => {
-      console.log(line);
       data += line;
     });
     process.addListener('exit', (e) => {
-      console.log(e);
       if (e !== 0 && e !== 4) {
         reject('APLint failed.');
       }

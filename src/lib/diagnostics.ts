@@ -31,8 +31,6 @@ export const createDiagnostic = (result: any): Diagnostic | null => {
     severity,
   );
   problem.source = 'APLint';
-
-  console.log('result', result);
   
   return problem;
 };

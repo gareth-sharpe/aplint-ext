@@ -28,7 +28,6 @@ exports.createDiagnostic = (result) => {
     }
     const problem = new vscode_1.Diagnostic(new vscode_1.Range(new vscode_1.Position(line, 0), new vscode_1.Position(line, 100)), message, severity);
     problem.source = 'APLint';
-    console.log('result', result);
     return problem;
 };
 //# sourceMappingURL=diagnostics.js.map
