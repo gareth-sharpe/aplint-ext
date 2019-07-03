@@ -3,7 +3,7 @@
  "displayName": "APLint",
  "publisher": "APLint",
  "icon": "assets/logo.png",
- "version": "1.0.0",
+ "version": "1.0.1",
  "description": "VSCode extension for APLint",
  "main": "dist/index.js",
  "scripts": {
@@ -18,7 +18,7 @@
   "Salesforce",
   "Apex",
   "Visualforce"
-],
+ ],
  "bugs": {
   "url": "https://github.com/gareth-sharpe/aplint-ext/issues",
   "email": "gareth_sharpe@manulife.com"
@@ -45,28 +45,28 @@
    }
   ],
   "languages": [
-    {
-        "id": "apex",
-        "extensions": [
-            ".apxc",
-            ".cls",
-            ".trigger"
-        ],
-        "aliases": [
-            "Apex"
-        ]
-    },
-    {
-        "id": "visualforce",
-        "extensions": [
-            ".page",
-            ".component"
-        ],
-        "aliases": [
-            "VisualForce",
-            "Visualforce"
-        ]
-    }
+   {
+    "id": "apex",
+    "extensions": [
+     ".apxc",
+     ".cls",
+     ".trigger"
+    ],
+    "aliases": [
+     "Apex"
+    ]
+   },
+   {
+    "id": "visualforce",
+    "extensions": [
+     ".page",
+     ".component"
+    ],
+    "aliases": [
+     "VisualForce",
+     "Visualforce"
+    ]
+   }
   ]
  },
  "galleryBanner": {
