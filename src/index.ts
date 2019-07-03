@@ -10,7 +10,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   vscode.window.showInformationMessage('Congratulations, APLint is now active!');
 
-	let aplintcommand = vscode.commands.registerCommand('extension.APLint:Run', async () => { 
+	let aplintCommand = vscode.commands.registerCommand('extension.APLint:Run', async () => {
+		vscode.commands.executeCommand('extension.APLint:ClearProblems'); 
 		run(collection, outputChannel); 
 	});
 	let clearProblemsCommand = vscode.commands.registerCommand('extension.APLint:ClearProblems', () => {
@@ -19,16 +20,18 @@ export function activate(context: vscode.ExtensionContext) {
 
 	vscode.workspace.onDidSaveTextDocument(async (textDocument) => { 
 		if (isSupportedLanguage(textDocument.languageId)) {
+			vscode.commands.executeCommand('extension.APLint:ClearProblems');
 			run(collection, outputChannel);
 		}
 	});
 	vscode.window.onDidChangeActiveTextEditor((editor) => {
 		if (isSupportedLanguage(editor!.document.languageId)) {
+			vscode.commands.executeCommand('extension.APLint:ClearProblems');
 			run(collection, outputChannel);
 		} 
 	});
 
-	context.subscriptions.push(aplintcommand);
+	context.subscriptions.push(aplintCommand);
 	context.subscriptions.push(clearProblemsCommand);
 }
 

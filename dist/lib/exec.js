@@ -20,9 +20,11 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
     let data = '';
     data = yield new Promise((resolve, reject) => {
         process.stdout.on('data', (line) => {
+            console.log(line);
             data += line;
         });
         process.addListener('exit', (e) => {
+            console.log(e);
             if (e !== 0 && e !== 4) {
                 reject('APLint failed.');
             }

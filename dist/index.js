@@ -16,7 +16,8 @@ const collection = vscode.languages.createDiagnosticCollection('aplint');
 const outputChannel = vscode.window.createOutputChannel('APLint');
 function activate(context) {
     vscode.window.showInformationMessage('Congratulations, APLint is now active!');
-    let aplintcommand = vscode.commands.registerCommand('extension.APLint:Run', () => __awaiter(this, void 0, void 0, function* () {
+    let aplintCommand = vscode.commands.registerCommand('extension.APLint:Run', () => __awaiter(this, void 0, void 0, function* () {
+        vscode.commands.executeCommand('extension.APLint:ClearProblems');
         run_1.run(collection, outputChannel);
     }));
     let clearProblemsCommand = vscode.commands.registerCommand('extension.APLint:ClearProblems', () => {
@@ -24,15 +25,17 @@ function activate(context) {
     });
     vscode.workspace.onDidSaveTextDocument((textDocument) => __awaiter(this, void 0, void 0, function* () {
         if (isSupportedLanguage(textDocument.languageId)) {
+            vscode.commands.executeCommand('extension.APLint:ClearProblems');
             run_1.run(collection, outputChannel);
         }
     }));
     vscode.window.onDidChangeActiveTextEditor((editor) => {
         if (isSupportedLanguage(editor.document.languageId)) {
+            vscode.commands.executeCommand('extension.APLint:ClearProblems');
             run_1.run(collection, outputChannel);
         }
     });
-    context.subscriptions.push(aplintcommand);
+    context.subscriptions.push(aplintCommand);
     context.subscriptions.push(clearProblemsCommand);
 }
 exports.activate = activate;

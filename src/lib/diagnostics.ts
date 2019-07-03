@@ -1,34 +1,38 @@
-import { Diagnostic, DiagnosticSeverity, Range, Position } from 'vscode';
-import { LINE, DESCRIPTION, PRIORITY } from '../utils/constants';
+import { Diagnostic, DiagnosticSeverity, Range, Position, DiagnosticRelatedInformation, Location } from 'vscode';
+import { LINE, DESCRIPTION, PRIORITY, RULE_SET } from '../utils/constants';
 
 export const createDiagnostic = (result: any): Diagnostic | null => {
   const line = parseInt(result[LINE]) - 1;
   if (isNaN(line)) { return null; }
+  const ruleset = result[RULE_SET];
   const description = result[DESCRIPTION];
+  const message = `${ruleset}: ${description}`;
   const priority = parseInt(result[PRIORITY]);
-  let level: DiagnosticSeverity;
+  let severity: DiagnosticSeverity;
 
   switch (priority) {
     case 1 || 2:
-      level = DiagnosticSeverity.Error;
+      severity = DiagnosticSeverity.Error;
       break;
     case 3:
-      level = DiagnosticSeverity.Warning;
+      severity = DiagnosticSeverity.Warning;
       break;
     case 4: 
-      level = DiagnosticSeverity.Information;
+      severity = DiagnosticSeverity.Information;
       break;
     default:
-      level = DiagnosticSeverity.Hint;
+      severity = DiagnosticSeverity.Hint;
       break;
   }
 
   const problem = new Diagnostic(
     new Range(new Position(line, 0), new Position(line, 100)),
-    description,
-    level,
+    message,
+    severity,
   );
   problem.source = 'APLint';
+
+  console.log('result', result);
   
   return problem;
 };

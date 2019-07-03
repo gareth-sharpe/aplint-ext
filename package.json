@@ -1,6 +1,7 @@
 {
  "name": "sf-core-aplint-ext",
  "displayName": "APLint",
+ "publisher": "APLint",
  "icon": "assets/logo.png",
  "version": "1.0.0",
  "description": "VSCode extension for APLint",
@@ -9,20 +10,23 @@
   "vscode:prepublish": "npm run compile",
   "compile": "tsc -p ./",
   "lint": "tslint -p ./",
-  "watch": "tsc -watch -p ./"
+  "watch": "tsc -watch -p ./",
+  "package": "vsce package"
  },
  "bugs": {
   "url": "https://github.com/gareth-sharpe/aplint-ext/issues",
   "email": "gareth_sharpe@manulife.com"
-},
-"repository": {
+ },
+ "repository": {
   "type": "git",
   "url": "https://github.com/gareth-sharpe/aplint-ext.git"
-},
+ },
  "engines": {
   "vscode": "^1.34.0"
  },
  "activationEvents": [
+  "onLanguage:apex",
+  "onLanguage:visualforce",
   "onCommand:extension.APLint:Run",
   "onCommand:extension.APLint:ClearProblems"
  ],
@@ -41,19 +45,25 @@
  "galleryBanner": {
   "color": "#C80000",
   "theme": "dark"
-},
- "categories": ["Linters"],
+ },
+ "categories": [
+  "Linters"
+ ],
  "author": "Gareth Sharpe",
  "license": "ISC",
  "dependencies": {
   "@types/node": "^12.0.10",
   "@types/vscode": "^1.35.0",
+  "@types/webpack": "^4.4.34",
   "csv-string": "^3.1.6",
   "tslint": "^5.18.0",
-  "typescript": "^3.5.2",
-  "vscode": "^1.1.35"
+  "typescript": "^3.5.2"
  },
  "devDependencies": {
-  "vsce": "^1.64.0"
+  "ts-loader": "^6.0.4",
+  "vscode": "^1.1.35",
+  "webpack": "^4.35.2",
+  "webpack-cli": "^3.3.5",
+  "webpack-plugin-copy": "^1.0.1"
  }
 }

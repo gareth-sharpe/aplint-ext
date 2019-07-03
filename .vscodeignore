@@ -1,0 +1,7 @@
+.vscode
+.sonarlint
+__tests__
+node_modules
+out/
+src/
+tsconfig.json
