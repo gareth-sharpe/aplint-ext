@@ -1,0 +1,59 @@
+{
+ "name": "sf-core-aplint-ext",
+ "displayName": "APLint",
+ "icon": "assets/logo.png",
+ "version": "1.0.0",
+ "description": "VSCode extension for APLint",
+ "main": "dist/index.js",
+ "scripts": {
+  "vscode:prepublish": "npm run compile",
+  "compile": "tsc -p ./",
+  "lint": "tslint -p ./",
+  "watch": "tsc -watch -p ./"
+ },
+ "bugs": {
+  "url": "https://github.com/gareth-sharpe/aplint-ext/issues",
+  "email": "gareth_sharpe@manulife.com"
+},
+"repository": {
+  "type": "git",
+  "url": "https://github.com/gareth-sharpe/aplint-ext.git"
+},
+ "engines": {
+  "vscode": "^1.34.0"
+ },
+ "activationEvents": [
+  "onCommand:extension.APLint:Run",
+  "onCommand:extension.APLint:ClearProblems"
+ ],
+ "contributes": {
+  "commands": [
+   {
+    "command": "extension.APLint:Run",
+    "title": "APLint: Run"
+   },
+   {
+    "command": "extension.APLint:ClearProblems",
+    "title": "APLint: Clear Problems"
+   }
+  ]
+ },
+ "galleryBanner": {
+  "color": "#C80000",
+  "theme": "dark"
+},
+ "categories": ["Linters"],
+ "author": "Gareth Sharpe",
+ "license": "ISC",
+ "dependencies": {
+  "@types/node": "^12.0.10",
+  "@types/vscode": "^1.35.0",
+  "csv-string": "^3.1.6",
+  "tslint": "^5.18.0",
+  "typescript": "^3.5.2",
+  "vscode": "^1.1.35"
+ },
+ "devDependencies": {
+  "vsce": "^1.64.0"
+ }
+}
