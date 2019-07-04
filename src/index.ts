@@ -8,8 +8,6 @@ const outputChannel = vscode.window.createOutputChannel('APLint');
 
 export function activate(context: vscode.ExtensionContext) {
 
-  vscode.window.showInformationMessage('Congratulations, APLint is now active!');
-
 	let aplintCommand = vscode.commands.registerCommand('extension.APLint:Run', async () => {
 		vscode.commands.executeCommand('extension.APLint:ClearProblems'); 
 		run(collection, outputChannel); 
