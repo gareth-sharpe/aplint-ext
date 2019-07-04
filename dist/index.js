@@ -15,7 +15,6 @@ const isSupportedLanguage = (langCode) => 0 <= supportedLanguageCodes.indexOf(la
 const collection = vscode.languages.createDiagnosticCollection('aplint');
 const outputChannel = vscode.window.createOutputChannel('APLint');
 function activate(context) {
-    vscode.window.showInformationMessage('Congratulations, APLint is now active!');
     let aplintCommand = vscode.commands.registerCommand('extension.APLint:Run', () => __awaiter(this, void 0, void 0, function* () {
         vscode.commands.executeCommand('extension.APLint:ClearProblems');
         run_1.run(collection, outputChannel);
