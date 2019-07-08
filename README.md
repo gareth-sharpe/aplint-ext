@@ -1,4 +1,4 @@
-# APLint
+<img align="center" src="./assets/logo_transparent.png" alt="Logo">
 
 A (soon to be) configurable linting tool for Apex and Visualforce code.
 

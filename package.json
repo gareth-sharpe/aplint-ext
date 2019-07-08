@@ -12,7 +12,7 @@
   "lint": "tslint -p ./",
   "watch": "tsc -watch -p ./",
   "package": "vsce package",
-  "move": "cp README.md ./dist/README.md && cp -R assets ./dist/assets"
+  "move": "cp README.md ./dist/README.md && cp -R assets ./dist"
  },
  "keywords": [
   "Salesforce",
