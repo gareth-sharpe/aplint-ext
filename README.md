@@ -4,8 +4,10 @@ A (soon to be) configurable linting tool for Apex and Visualforce code.
 
 ## Features
 
-* Lints Apex and Visualforce code on save
+* Lints Apex and Visualforce code on save, from command pallette, editor menu, and touchbar (macOS)
 * Generates diagnostic output to both text editor and problems terminal
+* Clear diagnostic output in problems terminal from command pallette, editor menue and touchbar (MacOS)
+* View rule definition and details from within VSCode or in your default browser (see examples for usage)
 
 ## Usage
 
@@ -18,11 +20,17 @@ APLint: Clear Problems  // clears all diagnostics from the output console
 
 ### Example
 
+How to: Use APLint (with `onSave` linting enabled)
+
 ![](assets/howto.gif)
+
+How to: View rule documentation in VSCode
+
+![](assets/descriptions.gif)
 
 ## Configuration
 
-TBD
+* Add custom ruleset path(s) in `settings.json` using the `aplint.customRulesets` key (see extension settings for more details)
 
 ## Rule Categories
 
@@ -41,13 +49,13 @@ A full index of the above rules can be found [here](https://pmd.github.io/pmd-6.
 * Custom action configuration
   * Ability to turn off onSave event
 * Custom rule configuration
-  * Ability to provide custom ruleset
+  * ~~Ability to provide custom ruleset~~
   * Ablity to select from multiple default rulesets
 * Warning thresholds
   * Ability to determine which level of severity determines a diagnostic warning, info, etc.
 * Point to rule
-  * Ability to take user to the rule that triggered the linting error
-* Quick actions
+  * ~~Ability to take user to the rule that triggered the linting error
+* Quick actions~~
   * Auto-generate code snipits
   * Suggest fixes for common types of problems as comments
 
