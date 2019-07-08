@@ -44,6 +44,60 @@
     "title": "APLint: Clear Problems"
    }
   ],
+  "configuration": {
+    "type": "object",
+    "title": "APLint Configuration",
+    "properties": {
+      "aplint.customRulesets": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "default": [],
+        "description": "Path(s) to PMD ruleset XML file(s).",
+        "format": "*.xml",
+        "pattern": "*.xml"
+      }
+    }
+  },
+  "menus": {
+    "commandPalette": [
+      {
+          "when": "resourceLangId == 'apex'",
+          "command": "extension.APLint:Run",
+          "group": "aplint"
+      },
+      {
+        "when": "resourceLangId == 'apex'",
+        "command": "extension.APLint:ClearProblems",
+        "group": "aplint"
+      }
+    ],
+    "editor/title": [
+      {
+          "when": "resourceLangId == 'apex'",
+          "command": "extension.APLint:Run",
+          "group": "aplint"
+      },
+      {
+        "when": "resourceLangId == 'apex'",
+        "command": "extension.APLint:ClearProblems",
+        "group": "aplint"
+      }
+    ],
+    "touchBar": [
+      {
+        "when": "resourceLangId == 'apex'",
+        "command": "extension.APLint:Run",
+        "group": "aplint"
+      },
+      {
+        "when": "resourceLangId == 'apex'",
+        "command": "extension.APLint:ClearProblems",
+        "group": "aplint"
+      }
+    ]
+  },
   "languages": [
    {
     "id": "apex",
@@ -83,6 +137,7 @@
   "@types/vscode": "^1.35.0",
   "@types/webpack": "^4.4.34",
   "csv-string": "^3.1.6",
+  "node-fetch": "^2.6.0",
   "tslint": "^5.18.0",
   "typescript": "^3.5.2"
  },

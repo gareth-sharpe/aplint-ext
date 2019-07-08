@@ -9,20 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
+const vscode_1 = require("vscode");
 exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () {
     const dir = __dirname;
+    let configuredRulesets = vscode_1.workspace.getConfiguration().get('aplint.customRulesets');
     const targetFlag = `-d ${path}`;
-    const rulesetFlag = `-R ${dir}/../../ruleset.xml`;
+    const rulesetFlag = configuredRulesets.length ?
+        `-R ${configuredRulesets}` :
+        `-R ${dir}/../../ruleset.xml`;
     const formatFlag = `-f csv`;
     const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
-    const cmd = `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
-    const process = child_process_1.exec(cmd);
+    const isWin = process.platform === 'win32';
+    const cmd = isWin ?
+        `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}` :
+        `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
+    const spawn = child_process_1.exec(cmd);
     let data = '';
     data = yield new Promise((resolve, reject) => {
-        process.stdout.on('data', (line) => {
+        spawn.stdout.on('data', (line) => {
             data += line;
         });
-        process.addListener('exit', (e) => {
+        spawn.addListener('exit', (e) => {
             if (e !== 0 && e !== 4) {
                 reject('APLint failed.');
             }
