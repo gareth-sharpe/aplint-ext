@@ -3,7 +3,7 @@
  "displayName": "APLint",
  "publisher": "APLint",
  "icon": "assets/logo.png",
- "version": "1.0.6",
+ "version": "1.0.7",
  "description": "VSCode extension for APLint",
  "main": "dist/index.js",
  "scripts": {
@@ -45,58 +45,58 @@
    }
   ],
   "configuration": {
-    "type": "object",
-    "title": "APLint Configuration",
-    "properties": {
-      "aplint.customRulesets": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        },
-        "default": [],
-        "description": "Path(s) to PMD ruleset XML file(s).",
-        "format": "*.xml",
-        "pattern": "*.xml"
-      }
+   "type": "object",
+   "title": "APLint Configuration",
+   "properties": {
+    "aplint.customRulesets": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "default": [],
+     "description": "Path(s) to PMD ruleset XML file(s).",
+     "format": "*.xml",
+     "pattern": "*.xml"
     }
+   }
   },
   "menus": {
-    "commandPalette": [
-      {
-          "when": "resourceLangId == 'apex'",
-          "command": "extension.APLint:Run",
-          "group": "aplint"
-      },
-      {
-        "when": "resourceLangId == 'apex'",
-        "command": "extension.APLint:ClearProblems",
-        "group": "aplint"
-      }
-    ],
-    "editor/title": [
-      {
-          "when": "resourceLangId == 'apex'",
-          "command": "extension.APLint:Run",
-          "group": "aplint"
-      },
-      {
-        "when": "resourceLangId == 'apex'",
-        "command": "extension.APLint:ClearProblems",
-        "group": "aplint"
-      }
-    ],
-    "touchBar": [
-      {
-        "when": "resourceLangId == 'apex'",
-        "command": "extension.APLint:Run",
-        "group": "aplint"
-      },
-      {
-        "when": "resourceLangId == 'apex'",
-        "command": "extension.APLint:ClearProblems",
-        "group": "aplint"
-      }
-    ]
+   "commandPalette": [
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:Run",
+     "group": "aplint"
+    },
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:ClearProblems",
+     "group": "aplint"
+    }
+   ],
+   "editor/title": [
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:Run",
+     "group": "aplint"
+    },
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:ClearProblems",
+     "group": "aplint"
+    }
+   ],
+   "touchBar": [
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:Run",
+     "group": "aplint"
+    },
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:ClearProblems",
+     "group": "aplint"
+    }
+   ]
   },
   "languages": [
    {
