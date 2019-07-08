@@ -1,5 +1,5 @@
-import { Diagnostic, DiagnosticSeverity, Range, Position, DiagnosticRelatedInformation, Location } from 'vscode';
-import { LINE, DESCRIPTION, PRIORITY, RULE_SET } from '../utils/constants';
+import { Diagnostic, DiagnosticSeverity, Range, Position } from 'vscode';
+import { LINE, DESCRIPTION, PRIORITY, RULE_SET, RULE } from '../utils/constants';
 
 export const createDiagnostic = (result: any): Diagnostic | null => {
   const line = parseInt(result[LINE]) - 1;
@@ -31,6 +31,7 @@ export const createDiagnostic = (result: any): Diagnostic | null => {
     severity,
   );
   problem.source = 'APLint';
+  problem.code = `${result[RULE]} ${ruleset}`;
   
   return problem;
 };
