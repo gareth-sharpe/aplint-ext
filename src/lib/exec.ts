@@ -2,6 +2,14 @@ import { CancellationToken, } from 'vscode';
 import { exec } from 'child_process';
 import { workspace } from 'vscode';
 
+/**
+ * Executes the PMD linting shell/bash command with given paramaters.
+ * @author Gareth Sharpe
+ * @param {string} path The path to the directory to lint
+ * @param {CancellationToken} token The token to use to identify exec cancellation
+ * @return {Promise<string>}
+ * @async
+ */
 export const execCmd = async (path: string, token?: CancellationToken): Promise<string> => {
   const dir = __dirname;
   let configuredRulesets: string[] | undefined = workspace.getConfiguration().get('aplint.customRulesets');

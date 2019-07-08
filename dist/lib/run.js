@@ -11,9 +11,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
 const exec_1 = require("./exec");
 const parse_1 = require("./parse");
-exports.run = (collection, outputChannel) => __awaiter(this, void 0, void 0, function* () {
-    const currentPath = vscode_1.window.activeTextEditor.document.fileName;
-    const data = yield exec_1.execCmd(currentPath);
+/**
+ * Lints a file and displays violated rules as VSCode diagnostics in
+ * the output terminal.
+ * @author Gareth Sharpe
+ * @param collection A collection used to store VSCode diagnostics
+ * @param outputChannel An output channel to write to
+ * @returns {Promise<void>}
+ * @async
+ */
+exports.run = (collection, path) => __awaiter(this, void 0, void 0, function* () {
+    const data = yield exec_1.execCmd(path);
     const problemsMap = parse_1.parseCSV(data);
     if (problemsMap.size > 0) {
         for (let [path, issues] of problemsMap) {

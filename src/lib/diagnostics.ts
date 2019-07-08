@@ -1,6 +1,12 @@
 import { Diagnostic, DiagnosticSeverity, Range, Position } from 'vscode';
 import { LINE, DESCRIPTION, PRIORITY, RULE_SET, RULE } from '../utils/constants';
 
+/**
+ * Creates a VSCode diagnostic problem from rule violation information
+ * @author Gareth Sharpe
+ * @param {any} result an object containing rule violaton information
+ * @returns {Diagnostic | null}
+ */
 export const createDiagnostic = (result: any): Diagnostic | null => {
   const line = parseInt(result[LINE]) - 1;
   if (isNaN(line)) { return null; }

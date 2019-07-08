@@ -1,10 +1,11 @@
-<img align="center" src="./assets/logo_transparent.png" alt="Logo">
+![](assets/logo_transparent.png)
 
 A (soon to be) configurable linting tool for Apex and Visualforce code.
 
 ## Features
 
-* Lints Apex and Visualforce code on save, from command pallette, editor menu, and touchbar (macOS)
+* Lints Apex and Visualforce file on save, from command pallette, editor menu, and touchbar (macOS) 
+* Lints Apex and Visualforce file in current directory from command pallette, editor menu, and touchbar (macOS)
 * Generates diagnostic output to both text editor and problems terminal
 * Clear diagnostic output in problems terminal from command pallette, editor menue and touchbar (MacOS)
 * View rule definition and details from within VSCode or in your default browser (see examples for usage)
@@ -14,8 +15,9 @@ A (soon to be) configurable linting tool for Apex and Visualforce code.
 APLint, by default, lints any Apex or Visualforce page on save. Other commands can be executed using Command-Shift-P (⌘ ⇧ P) or Ctrl-Shift-P on Windows. The currently supported comamnds are:
 
 ```
-APLint: Run             // runs APLint on the current file without saving
-APLint: Clear Problems  // clears all diagnostics from the output console 
+APLint: Run On file       // runs APLint on the current file
+APLint: Run On Directory  // runs APLint on the currect directory
+APLint: Clear Problems    // clears all diagnostics
 ```
 
 ### Example
@@ -54,8 +56,8 @@ A full index of the above rules can be found [here](https://pmd.github.io/pmd-6.
 * Warning thresholds
   * Ability to determine which level of severity determines a diagnostic warning, info, etc.
 * Point to rule
-  * ~~Ability to take user to the rule that triggered the linting error
-* Quick actions~~
+  * ~~Ability to take user to the rule that triggered the linting error~~
+* Quick actions
   * Auto-generate code snipits
   * Suggest fixes for common types of problems as comments
 
@@ -78,5 +80,3 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Gareth Sharpe** - *Initial work* - [@sharpga](https://linkedin.com/in/garethsharpe)
 
 ## Acknowledgments
-
-* 

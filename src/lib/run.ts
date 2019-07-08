@@ -2,9 +2,17 @@ import { Uri, workspace, window, Range, Position, DiagnosticCollection, OutputCh
 import { execCmd } from './exec';
 import { parseCSV } from './parse';
 
-export const run = async (collection: DiagnosticCollection, outputChannel: OutputChannel): Promise<void> => {
-  const currentPath = window.activeTextEditor!.document.fileName;
-  const data = await execCmd(currentPath);
+/**
+ * Lints a file and displays violated rules as VSCode diagnostics in
+ * the output terminal.
+ * @author Gareth Sharpe
+ * @param collection A collection used to store VSCode diagnostics
+ * @param outputChannel An output channel to write to
+ * @returns {Promise<void>}
+ * @async
+ */
+export const run = async (collection: DiagnosticCollection, path: string): Promise<void> => {
+  const data = await execCmd(path);
   const problemsMap = parseCSV(data);
   if (problemsMap.size > 0) {
     for (let [path, issues] of problemsMap) {

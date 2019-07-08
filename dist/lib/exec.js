@@ -10,6 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
 const vscode_1 = require("vscode");
+/**
+ * Executes the PMD linting shell/bash command with given paramaters.
+ * @author Gareth Sharpe
+ * @param {string} path The path to the directory to lint
+ * @param {CancellationToken} token The token to use to identify exec cancellation
+ * @return {Promise<string>}
+ * @async
+ */
 exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () {
     const dir = __dirname;
     let configuredRulesets = vscode_1.workspace.getConfiguration().get('aplint.customRulesets');

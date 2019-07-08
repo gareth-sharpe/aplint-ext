@@ -2,6 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
 const constants_1 = require("../utils/constants");
+/**
+ * Creates a VSCode diagnostic problem from rule violation information
+ * @author Gareth Sharpe
+ * @param {any} result an object containing rule violaton information
+ * @returns {Diagnostic | null}
+ */
 exports.createDiagnostic = (result) => {
     const line = parseInt(result[constants_1.LINE]) - 1;
     if (isNaN(line)) {

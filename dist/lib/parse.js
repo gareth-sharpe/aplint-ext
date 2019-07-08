@@ -3,6 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const diagnostics_1 = require("../lib/diagnostics");
 const constants_1 = require("../utils/constants");
 const parser = require('csv-string');
+/**
+ * Parses the CSV of the violated rule(s)
+ * @author Gareth Sharpe
+ * @param csv The comma seperated values of the violated rule(s)
+ * @returns {Map<string, Array<Diagnostic>>}
+ */
 exports.parseCSV = (csv) => {
     let results;
     results = parser.parse(csv);

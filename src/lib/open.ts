@@ -8,6 +8,13 @@ interface Info {
   url: string;
 }
 
+/**
+ * Opens a rule in a new VSCode window.
+ * @author Gareth Sharpe
+ * @param {Diagnostic} diagnostic A diagnostic of the violated rule
+ * @returns {Promise<void}
+ * @async
+ */
 export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
   const panel = window.createWebviewPanel(
     'aplint',
@@ -26,6 +33,12 @@ export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
   panel.webview.html = fullPanel;
 };
 
+/**
+ * Fetches information reguarding a violoated rule
+ * @author Gareth Sharpe
+ * @param diagnostic A diagnostic of the violated rule
+ * @returns {Info}
+ */
 const getInfo = (diagnostic: Diagnostic): Info => {
   const { code } = diagnostic;
   const splitCodes = String(code)!.split(' ');
@@ -39,6 +52,3 @@ const getInfo = (diagnostic: Diagnostic): Info => {
   };
   return info;
 };
-  
-
-    

@@ -12,7 +12,9 @@
   "lint": "tslint -p ./",
   "watch": "tsc -watch -p ./",
   "package": "vsce package",
-  "move": "cp README.md ./dist/README.md && cp -R assets ./dist"
+  "move": "cp README.md ./dist/README.md && cp -R assets ./dist",
+  "doc": "typedoc --excludeExternals --ignoreCompilerErrors --out docs/ --name sf-core-aplint-ext",
+  "doc:open": "npm run doc && node ./src/utils/docs.ts"
  },
  "keywords": [
   "Salesforce",
@@ -36,8 +38,12 @@
  "contributes": {
   "commands": [
    {
-    "command": "extension.APLint:Run",
-    "title": "APLint: Run"
+    "command": "extension.APLint:RunOnFile",
+    "title": "APLint: Run On File"
+   },
+   {
+    "command": "extension.APLint:RunOnDirectory",
+    "title": "APLint: Run On Directory"
    },
    {
     "command": "extension.APLint:ClearProblems",
@@ -64,9 +70,14 @@
    "commandPalette": [
     {
      "when": "resourceLangId == 'apex'",
-     "command": "extension.APLint:Run",
+     "command": "extension.APLint:RunOnFile",
      "group": "aplint"
     },
+    {
+      "when": "resourceLangId == 'apex'",
+      "command": "extension.APLint:RunOnDirectory",
+      "group": "aplint"
+     },
     {
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
@@ -76,9 +87,14 @@
    "editor/title": [
     {
      "when": "resourceLangId == 'apex'",
-     "command": "extension.APLint:Run",
+     "command": "extension.APLint:RunOnFile",
      "group": "aplint"
     },
+    {
+      "when": "resourceLangId == 'apex'",
+      "command": "extension.APLint:RunOnDirectory",
+      "group": "aplint"
+     },
     {
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
@@ -88,9 +104,14 @@
    "touchBar": [
     {
      "when": "resourceLangId == 'apex'",
-     "command": "extension.APLint:Run",
+     "command": "extension.APLint:RunOnFile",
      "group": "aplint"
     },
+    {
+      "when": "resourceLangId == 'apex'",
+      "command": "extension.APLint:RunOnDirectory",
+      "group": "aplint"
+     },
     {
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
@@ -138,6 +159,8 @@
   "@types/webpack": "^4.4.34",
   "csv-string": "^3.1.6",
   "node-fetch": "^2.6.0",
+  "opn": "^6.0.0",
+  "tsdoc": "0.0.4",
   "tslint": "^5.18.0",
   "typescript": "^3.5.2"
  },

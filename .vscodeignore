@@ -1,6 +1,7 @@
 .vscode
 .sonarlint
-__tests__
+__tests__/
+docs/
 out/
 src/
 tsconfig.json
