@@ -3,7 +3,7 @@
  "displayName": "APLint",
  "publisher": "APLint",
  "icon": "assets/logo.png",
- "version": "1.0.7",
+ "version": "1.0.8",
  "description": "VSCode extension for APLint",
  "main": "dist/index.js",
  "scripts": {
@@ -74,10 +74,10 @@
      "group": "aplint"
     },
     {
-      "when": "resourceLangId == 'apex'",
-      "command": "extension.APLint:RunOnDirectory",
-      "group": "aplint"
-     },
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:RunOnDirectory",
+     "group": "aplint"
+    },
     {
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
@@ -91,10 +91,10 @@
      "group": "aplint"
     },
     {
-      "when": "resourceLangId == 'apex'",
-      "command": "extension.APLint:RunOnDirectory",
-      "group": "aplint"
-     },
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:RunOnDirectory",
+     "group": "aplint"
+    },
     {
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
@@ -108,10 +108,10 @@
      "group": "aplint"
     },
     {
-      "when": "resourceLangId == 'apex'",
-      "command": "extension.APLint:RunOnDirectory",
-      "group": "aplint"
-     },
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:RunOnDirectory",
+     "group": "aplint"
+    },
     {
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
