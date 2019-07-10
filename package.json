@@ -3,7 +3,7 @@
  "displayName": "APLint",
  "publisher": "APLint",
  "icon": "assets/logo.png",
- "version": "1.0.8",
+ "version": "1.0.9",
  "description": "VSCode extension for APLint",
  "main": "dist/index.js",
  "scripts": {
@@ -65,18 +65,24 @@
      "pattern": "*.xml"
     },
     "aplint.lintingProfile": {
-      "type": "string",
-      "enum": ["Manulife", "Default", "Strict", "Moderate", "Lenient"],
-      "default": "Manulife",
-      "description": "The linting profile to adhere to."
-     }
+     "type": "string",
+     "enum": [
+      "Manulife",
+      "Default",
+      "Strict",
+      "Moderate",
+      "Lenient"
+     ],
+     "default": "Manulife",
+     "description": "The linting profile to adhere to."
+    }
    }
   },
   "configurationDefaults": {
-    "[apex]": {
-      "editor.lightbulb.enabled": true,
-      "keyboard.touchbar.enabled": true
-    }
+   "[apex]": {
+    "editor.lightbulb.enabled": true,
+    "keyboard.touchbar.enabled": true
+   }
   },
   "menus": {
    "commandPalette": [
