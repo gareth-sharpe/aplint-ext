@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<ruleset name="Custom Documentation"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+  <description>
+      Custom Manulife ApexDoc rules
+  </description>
+
+  <rule name="ApexDocMustHaveDescription"
+        language="apex"
+        message="ApexDoc must have @description with at least ten characters"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+    <description> ApexDoc must have @description with at least ten characters </description>
+      <priority>3</priority>
+      <properties>
+        <property name="xpath">
+          <value>
+          <![CDATA[//UserClass//FormalComment[not(matches(@Image, '@description [A-Z][A-Za-z\s1-9]{10,}\.'))]]]>
+          </value>
+        </property>
+      </properties>
+      <example>
+      <![CDATA[
+      /**
+        * @description This is my class.
+        */
+      public class MyClass {
+        /**
+          * @description This is my method.
+          */
+        public void foo() {
+        }
+      }
+      ]]>
+    </example>
+  </rule>
+</ruleset>

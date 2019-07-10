@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = require("vscode");
 const exec_1 = require("./exec");
 const parse_1 = require("./parse");
+const lint_1 = require("./lint");
 /**
  * Lints a file and displays violated rules as VSCode diagnostics in
  * the output terminal.
@@ -23,6 +24,7 @@ const parse_1 = require("./parse");
 exports.run = (collection, path) => __awaiter(this, void 0, void 0, function* () {
     const data = yield exec_1.execCmd(path);
     const problemsMap = parse_1.parseCSV(data);
+    yield lint_1.lint(path, problemsMap);
     if (problemsMap.size > 0) {
         for (let [path, issues] of problemsMap) {
             let uri = vscode_1.Uri.file(path);

@@ -12,7 +12,7 @@
   "lint": "tslint -p ./",
   "watch": "tsc -watch -p ./",
   "package": "vsce package",
-  "move": "cp README.md ./dist/README.md && cp -R assets ./dist",
+  "move": "cp README.md ./dist/README.md && cp -R assets ./dist && cp -R config ./dist",
   "doc": "typedoc --excludeExternals --ignoreCompilerErrors --out docs/ --name sf-core-aplint-ext",
   "doc:open": "npm run doc && node ./src/utils/docs.ts"
  },
@@ -52,7 +52,7 @@
   ],
   "configuration": {
    "type": "object",
-   "title": "APLint Configuration",
+   "title": "APLint",
    "properties": {
     "aplint.customRulesets": {
      "type": "array",
@@ -60,11 +60,23 @@
       "type": "string"
      },
      "default": [],
-     "description": "Path(s) to PMD ruleset XML file(s).",
+     "description": "Path(s) to PMD ruleset XML file(s): aplint.customRulesets",
      "format": "*.xml",
      "pattern": "*.xml"
-    }
+    },
+    "aplint.lintingProfile": {
+      "type": "string",
+      "enum": ["Manulife", "Default", "Strict", "Moderate", "Lenient"],
+      "default": "Manulife",
+      "description": "The linting profile to adhere to."
+     }
    }
+  },
+  "configurationDefaults": {
+    "[apex]": {
+      "editor.lightbulb.enabled": true,
+      "keyboard.touchbar.enabled": true
+    }
   },
   "menus": {
    "commandPalette": [

@@ -1,6 +1,7 @@
-import { Uri, workspace, window, Range, Position, DiagnosticCollection, OutputChannel } from 'vscode';
+import { Uri, workspace, Range, Position, DiagnosticCollection, OutputChannel } from 'vscode';
 import { execCmd } from './exec';
 import { parseCSV } from './parse';
+import { lint } from './lint';
 
 /**
  * Lints a file and displays violated rules as VSCode diagnostics in
@@ -14,6 +15,7 @@ import { parseCSV } from './parse';
 export const run = async (collection: DiagnosticCollection, path: string): Promise<void> => {
   const data = await execCmd(path);
   const problemsMap = parseCSV(data);
+  await lint(path, problemsMap);
   if (problemsMap.size > 0) {
     for (let [path, issues] of problemsMap) {
       let uri = Uri.file(path);

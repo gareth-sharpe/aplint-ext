@@ -2,6 +2,8 @@ import { CancellationToken, } from 'vscode';
 import { exec } from 'child_process';
 import { workspace } from 'vscode';
 
+const fs = require('fs');
+
 /**
  * Executes the PMD linting shell/bash command with given paramaters.
  * @author Gareth Sharpe
@@ -14,10 +16,18 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   const dir = __dirname;
   let configuredRulesets: string[] | undefined = workspace.getConfiguration().get('aplint.customRulesets');
 
+  const manulifeConfiguration = `${dir}/../config/manulife/`;
+
+  const files = await fs.readdirSync(manulifeConfiguration);
+  let rulesets = `-R ${dir}/../../ruleset.xml`;
+  files.forEach((file: any) => {
+    rulesets = rulesets.concat(`,${dir}/../config/manulife/${file}`);
+  });
+
   const targetFlag = `-d ${path}`;
   const rulesetFlag = configuredRulesets!.length ? 
     `-R ${configuredRulesets}` : 
-    `-R ${dir}/../../ruleset.xml`;
+    rulesets;
   const formatFlag = `-f csv`;
 
   const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;

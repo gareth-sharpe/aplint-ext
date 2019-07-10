@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
 const vscode_1 = require("vscode");
+const fs = require('fs');
 /**
  * Executes the PMD linting shell/bash command with given paramaters.
  * @author Gareth Sharpe
@@ -21,10 +22,16 @@ const vscode_1 = require("vscode");
 exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () {
     const dir = __dirname;
     let configuredRulesets = vscode_1.workspace.getConfiguration().get('aplint.customRulesets');
+    const manulifeConfiguration = `${dir}/../config/manulife/`;
+    const files = yield fs.readdirSync(manulifeConfiguration);
+    let rulesets = `-R ${dir}/../../ruleset.xml`;
+    files.forEach((file) => {
+        rulesets = rulesets.concat(`,${dir}/../config/manulife/${file}`);
+    });
     const targetFlag = `-d ${path}`;
     const rulesetFlag = configuredRulesets.length ?
         `-R ${configuredRulesets}` :
-        `-R ${dir}/../../ruleset.xml`;
+        rulesets;
     const formatFlag = `-f csv`;
     const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
     const isWin = process.platform === 'win32';

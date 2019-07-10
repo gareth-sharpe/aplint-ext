@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+
+<ruleset name="Custom Documentation"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+  <description>
+      Custom Manulife ApexDoc rules
+  </description>
+
+  <rule name="ApexDocMustHaveDate"
+        language="apex"
+        message="ApexDoc must have @date following MM/DD/YYYY"
+        class="net.sourceforge.pmd.lang.rule.XPathRule">
+    <description> ApexDoc must have @description with at least ten characters </description>
+      <priority>3</priority>
+      <properties>
+        <property name="xpath">
+          <value>
+          <![CDATA[//UserClass//FormalComment[not(matches(@Image, '@date (01|02|03|05|06|07|08|09|10|11|12)\/[0-9][0-9]\/[0-9]{4}'))]]]>
+          </value>
+        </property>
+      </properties>
+      <example>
+      <![CDATA[
+      /**
+        * @date 05/19/2025
+        */
+      public class MyClass {
+        /**
+          * @date 05/19/2025
+          */
+        public void foo() {
+        }
+      }
+      ]]>
+    </example>
+  </rule>
+</ruleset>
