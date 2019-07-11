@@ -1,4 +1,4 @@
-# ApexDoc
+# Code Style
 
 ## Braces Must Be Formatted
 
