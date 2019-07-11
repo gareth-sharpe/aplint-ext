@@ -62,4 +62,4 @@ This rule validates that:
 
   </div>
   </body>
-</html>`;
+</html>
