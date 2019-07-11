@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-  <html lang="en">
-
-<div>
-
 # ApexDoc
 
 ## Class Must Have Group
@@ -18,7 +13,7 @@ This rule validates that:
 
 *Examples*:
 
-:thumbsdown: Negative Example
+👎 Negative Example
 ```
 /**
  * @description A class with no @group
@@ -28,7 +23,7 @@ This rule validates that:
  }
 ```
 
-:thumbsdown: Negative Example
+👎 Negative Example
 ```
 /**
  * ...
@@ -41,7 +36,7 @@ This rule validates that:
  }
 ```
 
-:thumbsup: Positive Example
+👍 Positive Example
 ```
 /**
  * ...
@@ -57,7 +52,5 @@ This rule validates that:
 ### Acknowledgments
 
 *Rule author*: Gareth Sharpe
-*Docs author*: Gareth Sharpe
 
-  </div>
-</html>
+*Docs author*: Gareth Sharpe

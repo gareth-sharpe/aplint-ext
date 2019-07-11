@@ -1,4 +1,5 @@
 import { Diagnostic, window, ViewColumn } from "vscode";
+const marked = require('marked');
 
 const fetch = require('node-fetch');
 const NOT_FOUND = -1;
@@ -24,10 +25,16 @@ export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
     ViewColumn.Two
   );
   const info = getInfo(diagnostic);
-  const { url, rule } = info;
+  const { url, rule, custom } = info;
   console.log(url);
   const response = await fetch(url);
-  const html = await response.text();
+  const text = await response.text();
+  let html: string;
+  if (custom) {
+    html = marked(text);
+  } else {
+    html = 'Not Defined';
+  }
   console.log(html);
   // const start = html.indexOf(`<h2 id="${rule.toLowerCase()}">${rule}</h2>`);
   // const end = html.indexOf(`Use this rule with the default properties by just referencing it`);
