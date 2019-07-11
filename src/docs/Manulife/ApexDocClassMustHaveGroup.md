@@ -1,6 +1,5 @@
 <!DOCTYPE html>
   <html lang="en">
-  <body>
 
 <div>
 
@@ -61,5 +60,4 @@ This rule validates that:
 *Docs author*: Gareth Sharpe
 
   </div>
-  </body>
 </html>
