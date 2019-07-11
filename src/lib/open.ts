@@ -64,7 +64,7 @@ const getInfo = (diagnostic: Diagnostic): Info => {
   console.log(categories.indexOf(category));
   if (categories.indexOf(category) === NOT_FOUND) {
     info.custom = true;
-    info.url = `https://raw.githubusercontent.com/gareth-sharpe/aplint-ext/master/src/docs/${category}/${rule}.md`;
+    info.url = `https://raw.githubusercontent.com/gareth-sharpe/aplint-ext/master/src/docs/${category}/${rule}.html`;
   } else {
     info.custom = false;
     info.url = `https://pmd.github.io/latest/pmd_rules_apex_${category.toLowerCase()}.html#${rule.toLowerCase()}`;
