@@ -32,15 +32,15 @@ export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
   let html: string;
   if (custom) {
     html = marked(text);
+    const viewInBrowserLink = `<br><a href=${url}> View in browser </a>`;
+    html = viewInBrowserLink.concat(html);
   } else {
-    html = 'Not Defined';
+    const start = text.indexOf(`<h2 id="${rule.toLowerCase()}">${rule}</h2>`);
+    const end = text.indexOf(`Use this rule with the default properties by just referencing it`);
+    const content = text.substring(start, end);
+    const viewInBrowserLink = `<br><a href=${url}> View in browser </a>`;
+    html = viewInBrowserLink.concat(content);
   }
-  console.log(html);
-  // const start = html.indexOf(`<h2 id="${rule.toLowerCase()}">${rule}</h2>`);
-  // const end = html.indexOf(`Use this rule with the default properties by just referencing it`);
-  // const content = html.substring(start, end);
-  // const viewInBrowserLink = `<br><a href=${url}> View in browser </a>`;
-  // const fullPanel = viewInBrowserLink.concat(content);
   panel.webview.html = html;
 };
 
@@ -71,7 +71,7 @@ const getInfo = (diagnostic: Diagnostic): Info => {
   console.log(categories.indexOf(category));
   if (categories.indexOf(category) === NOT_FOUND) {
     info.custom = true;
-    info.url = `https://raw.githubusercontent.com/gareth-sharpe/aplint-ext/master/src/docs/${category}/${rule}.html`;
+    info.url = `https://raw.githubusercontent.com/gareth-sharpe/aplint-ext/master/src/docs/${category}/${rule}.md`;
   } else {
     info.custom = false;
     info.url = `https://pmd.github.io/latest/pmd_rules_apex_${category.toLowerCase()}.html#${rule.toLowerCase()}`;
