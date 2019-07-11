@@ -1,11 +1,12 @@
 import { Diagnostic, window, ViewColumn } from "vscode";
 
 const fetch = require('node-fetch');
+const NOT_FOUND = -1;
 
 interface Info {
   rule: string;
   category: string;
-  url: string;
+  url?: string;
 }
 
 /**
@@ -44,11 +45,33 @@ const getInfo = (diagnostic: Diagnostic): Info => {
   const splitCodes = String(code)!.split(' ');
   const rule = splitCodes[0];
   const category = splitCodes[1];
-  const url = `https://pmd.github.io/latest/pmd_rules_apex_${category.toLowerCase()}.html#${rule.toLowerCase()}`;
-  const info: Info = {
-    rule, 
-    category, 
-    url
+  const categories: string[] = [
+    "BestPractices",
+    "CodeStyle",
+    "Design",
+    "Documentation",
+    "ErrorProne",
+    "Performance",
+    "Security"
+  ];
+  let info: Info = {
+    rule,
+    category,
   };
+  console.log(categories.indexOf(category));
+  if (categories.indexOf(category) === NOT_FOUND) {
+    info.url = getCustomDocumentation(rule, category);
+  } else {
+    info.url = `https://pmd.github.io/latest/pmd_rules_apex_${category.toLowerCase()}.html#${rule.toLowerCase()}`;
+  }
+  
+
   return info;
+};
+
+const getCustomDocumentation = (rule: string, category: string): string => {
+  console.log(rule, category);
+  const docsPath = `${__dirname}/../docs/${category}/${rule}.md`;
+  console.log(docsPath);
+  return '';
 };

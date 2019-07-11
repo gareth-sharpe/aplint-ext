@@ -12,7 +12,11 @@
   "lint": "tslint -p ./",
   "watch": "tsc -watch -p ./",
   "package": "vsce package",
-  "move": "cp README.md ./dist/README.md && cp -R assets ./dist && cp -R config ./dist",
+  "move": "npm run move:readme && npm run  move:assets && npm run move:config && npm run move:docs",
+  "move:readme": "cp README.md ./dist/README.md",
+  "move:assets": "cp -R assets ./dist",
+  "move:config": "cp -R config ./dist",
+  "move:docs": "cp -R src/docs ./dist",
   "doc": "typedoc --excludeExternals --ignoreCompilerErrors --out docs/ --name sf-core-aplint-ext",
   "doc:open": "npm run doc && node ./src/utils/docs.ts"
  },

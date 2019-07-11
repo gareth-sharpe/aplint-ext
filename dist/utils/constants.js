@@ -10,7 +10,7 @@ exports.DESCRIPTION = 5;
 exports.RULE_SET = 6;
 exports.RULE = 7;
 // Rule Sets
-exports.CODE_STYLE = 'Code Style';
+exports.CODE_STYLE = 'ManulifeCodeStyle';
 // Rule Descriptions
 exports.BRACES_MUST_BE_FORMATTED_DESCRIPTION = 'Braces must be on same line and have proper spacing';
 exports.PARANTHASES_MUST_BE_FORMATTED_DESCRIPTION = 'Paranthases must be on same line and have proper spacing';

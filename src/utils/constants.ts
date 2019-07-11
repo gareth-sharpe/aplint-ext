@@ -9,7 +9,7 @@ export const RULE_SET = 6;
 export const RULE = 7;
 
 // Rule Sets
-export const CODE_STYLE = 'Code Style';
+export const CODE_STYLE = 'ManulifeCodeStyle';
 
 // Rule Descriptions
 export const BRACES_MUST_BE_FORMATTED_DESCRIPTION = 'Braces must be on same line and have proper spacing';
