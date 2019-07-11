@@ -9,7 +9,7 @@
       Custom Manulife ApexDoc rules
   </description>
 
-  <rule name="ApexDocMustHaveGroup"
+  <rule name="ApexDocClassMustHaveGroup"
         language="apex"
         message="ApexDoc must have @group"
         class="net.sourceforge.pmd.lang.rule.XPathRule">

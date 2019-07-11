@@ -7,6 +7,7 @@ interface Info {
   rule: string;
   category: string;
   url?: string;
+  custom?: boolean;
 }
 
 /**
@@ -24,14 +25,16 @@ export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
   );
   const info = getInfo(diagnostic);
   const { url, rule } = info;
+  console.log(url);
   const response = await fetch(url);
   const html = await response.text();
-  const start = html.indexOf(`<h2 id="${rule.toLowerCase()}">${rule}</h2>`);
-  const end = html.indexOf(`Use this rule with the default properties by just referencing it`);
-  const content = html.substring(start, end);
-  const viewInBrowserLink = `<br><a href=${url}> View in browser </a>`;
-  const fullPanel = viewInBrowserLink.concat(content);
-  panel.webview.html = fullPanel;
+  console.log(html);
+  // const start = html.indexOf(`<h2 id="${rule.toLowerCase()}">${rule}</h2>`);
+  // const end = html.indexOf(`Use this rule with the default properties by just referencing it`);
+  // const content = html.substring(start, end);
+  // const viewInBrowserLink = `<br><a href=${url}> View in browser </a>`;
+  // const fullPanel = viewInBrowserLink.concat(content);
+  panel.webview.html = html;
 };
 
 /**
@@ -60,18 +63,11 @@ const getInfo = (diagnostic: Diagnostic): Info => {
   };
   console.log(categories.indexOf(category));
   if (categories.indexOf(category) === NOT_FOUND) {
-    info.url = getCustomDocumentation(rule, category);
+    info.custom = true;
+    info.url = `https://raw.githubusercontent.com/gareth-sharpe/aplint-ext/master/src/docs/${category}/${rule}.md`;
   } else {
+    info.custom = false;
     info.url = `https://pmd.github.io/latest/pmd_rules_apex_${category.toLowerCase()}.html#${rule.toLowerCase()}`;
   }
-  
-
   return info;
-};
-
-const getCustomDocumentation = (rule: string, category: string): string => {
-  console.log(rule, category);
-  const docsPath = `${__dirname}/../docs/${category}/${rule}.md`;
-  console.log(docsPath);
-  return '';
 };
