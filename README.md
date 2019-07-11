@@ -46,6 +46,24 @@ How to: View rule documentation in VSCode
 
 A full index of the above rules can be found [here](https://pmd.github.io/pmd-6.15.0/pmd_rules_apex.html).
 
+## Additional Rules
+
+Additional rules can be enabled by selecting the `Manulife` linting profile in the extension settings of APLint, or by adding the key `"aplint.lintingProfile": "Manulife"` to the `settings.json` file of VSCode. These rules include:
+
+* [Class ApexDoc must have group](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ApexDocClassMustHaveGroup.md)
+* [ApexDoc must have author](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ApexDocMustHaveAuthor.md)
+* [ApexDoc must have date](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ApexDocMustHaveDate.md)
+* [ApexDoc must have description](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ApexDocMustHaveDescription.md)
+* [ApexDoc must have see](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ApexDocMustHaveSee.md)
+* [Braces must be formatted](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/BracesMustBeFormatted.md)
+* [Loops must have formatted spacing](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/LoopsMustHaveFormattedSpacing.md)
+* [Must not have extra spacing](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/MustNotHaveExtraSpacing.md)
+* [Parantheses must be formatted](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ParanthesesMustBeFormatted.md)
+* [Space must follow comma, comma must not follow space](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/SpaceMustFollowComma.md)
+* [Variable must be formatted](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/VariablesMustBeformatted.md)
+
+All rules can be found [here](https://github.com/gareth-sharpe/aplint-ext/tree/master/src/docs/Manulife).
+
 ## TODO
 
 * Custom action configuration
