@@ -9,13 +9,13 @@ export const RULE_SET = 6;
 export const RULE = 7;
 
 // Rule Sets
-export const CODE_STYLE = 'ManulifeCodeStyle';
+export const CODE_STYLE = 'Manulife';
 
 // Rule Descriptions
 export const BRACES_MUST_BE_FORMATTED_DESCRIPTION = 'Braces must be on same line and have proper spacing';
 export const PARANTHASES_MUST_BE_FORMATTED_DESCRIPTION = 'Paranthases must be on same line and have proper spacing';
 export const VARIABLES_MUST_BE_FORMATED_DESCRIPTION = 'Variables in paranthases must have consistent spacing';
-export const SPACE_MUST_FOLLOW_COMMA_DESCRIPTION = 'Space must follow a comma';
+export const SPACE_MUST_FOLLOW_COMMA_DESCRIPTION = 'Space must follow a comma and comma must not follow a space';
 export const LOOPS_MUST_HAVE_FORMATTED_SPACING_DESCRIPTION = 'Loops must have formatted spacing';
 export const MUST_NOT_HAVE_EXTRA_SPACING_DESCRIPTION = 'Code must not have extra spacing';
 

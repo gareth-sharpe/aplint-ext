@@ -14,7 +14,7 @@ import {
  * @return {result}
  */
 export const lintForSpaceAfterComma = (file: string, line: string, i: number): any[] => {
-  const spaceMustFollowComma = /[,][^\s]/g;
+  const spaceMustFollowComma = /(,[^\s]|\s,)/g;
   const failsSpaceMustFollowCommaTest = spaceMustFollowComma.test(line);
   let results: any[] = [];
   if (failsSpaceMustFollowCommaTest) {

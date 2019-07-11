@@ -4,8 +4,8 @@ export const makeResult = (
   file: string, 
   priority: number, 
   line: number, 
-  description: string, 
   ruleset: string, 
+  description: string, 
   rule: string) => {
   const result = {
     [FILE]: file,

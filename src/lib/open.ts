@@ -68,7 +68,6 @@ const getInfo = (diagnostic: Diagnostic): Info => {
     rule,
     category,
   };
-  console.log(categories.indexOf(category));
   if (categories.indexOf(category) === NOT_FOUND) {
     info.custom = true;
     info.url = `https://raw.githubusercontent.com/gareth-sharpe/aplint-ext/master/src/docs/${category}/${rule}.md`;

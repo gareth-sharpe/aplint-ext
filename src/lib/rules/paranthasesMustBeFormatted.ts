@@ -6,21 +6,21 @@ import {
 } from '../../utils/constants';
 
 /**
- * Lints a line for paranthase spacing.
+ * Lints a line for parentheses spacing.
  * @author Gareth Sharpe
  * @param {string} file the file currently being linted
  * @param {number} line the line to lint
  * @param {number} i the line number
  * @return {result}
  */
-export const lintForParenthesisSpacing = (file: string, line: string, i: number): any[] => {
+export const lintForParenthesesSpacing = (file: string, line: string, i: number): any[] => {
   if (!line.match(/^[^\/*]+(for|while|if|switch|else if)/g)) {
     return [];
   }
   const paranthasesMustHaveSpaceTest= /\s\(.*\)\s/g;
-  const passesParanthasisMustHaveSpaceTest = paranthasesMustHaveSpaceTest.test(line);
+  const passesParanthasesMustHaveSpaceTest = paranthasesMustHaveSpaceTest.test(line);
   let results: any[] = [];
-  if (!passesParanthasisMustHaveSpaceTest) {
+  if (!passesParanthasesMustHaveSpaceTest) {
     const result = {
       [FILE]: file,
       [PRIORITY]: 3,
