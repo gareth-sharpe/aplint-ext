@@ -1,6 +1,6 @@
 # ApexDoc
 
-## Class Must Have Group
+## Class ApexDoc Must Have Group
 
 *Since*: APLint 1.0.9
 

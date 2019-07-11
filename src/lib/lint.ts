@@ -3,12 +3,12 @@ import { createDiagnostic } from './diagnostics';
 import { FILE } from '../utils/constants';
 import { 
   lintForBraceSpacing,
-  lintForClassBraceSpacing } from './rules/bracesMustBeformattedRule';
-import { lintForParenthesisSpacing } from './rules/paranthasisMustBeFormattedRule';
-import { lintForVariableSpacing } from './rules/variablesMustBeformattedRule';
-import { lintForSpaceAfterComma } from './rules/spaceMustFollowCommaRule';
-import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacingRule';
-import { lintForExtraSpacing } from './rules/mustNotHaveExtraSpacingRule';
+  lintForClassBraceSpacing } from './rules/bracesMustBeformatted';
+import { lintForParenthesisSpacing } from './rules/paranthasisMustBeFormatted';
+import { lintForVariableSpacing } from './rules/variablesMustBeformatted';
+import { lintForSpaceAfterComma } from './rules/spaceMustFollowComma';
+import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacing';
+import { lintForExtraSpacing } from './rules/mustNotHaveExtraSpacing';
 
 const { createReadStream } = require('fs');
 const { createInterface } = require('readline');
