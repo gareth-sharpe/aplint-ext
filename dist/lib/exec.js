@@ -35,7 +35,7 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
     console.log('rulesets', rulesets);
     files.forEach((file) => {
         const path = isWin ?
-            `,${dir}\\..\\config\\manulife/${file}` :
+            `,${dir}\\..\\config\\manulife\\${file}` :
             `,${dir}/../config/manulife/${file}`;
         console.log('path', path);
         rulesets = rulesets.concat(path);

@@ -60,7 +60,7 @@ Additional rules can be enabled by selecting the `Manulife` linting profile in t
 * [Must not have extra spacing](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/MustNotHaveExtraSpacing.md)
 * [Parantheses must be formatted](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/ParanthesesMustBeFormatted.md)
 * [Space must follow comma, comma must not follow space](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/SpaceMustFollowComma.md)
-* [Variable must be formatted](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/VariablesMustBeformatted.md)
+* [Variable must be formatted](https://github.com/gareth-sharpe/aplint-ext/blob/master/src/docs/Manulife/VariablesMustBeFormatted.md)
 
 All rules can be found [here](https://github.com/gareth-sharpe/aplint-ext/tree/master/src/docs/Manulife).
 

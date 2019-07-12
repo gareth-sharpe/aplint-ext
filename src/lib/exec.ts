@@ -29,7 +29,7 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   console.log('rulesets', rulesets);
   files.forEach((file: any) => {
     const path = isWin ? 
-      `,${dir}\\..\\config\\manulife/${file}` :
+      `,${dir}\\..\\config\\manulife\\${file}` :
       `,${dir}/../config/manulife/${file}`;
     console.log('path', path);
     rulesets = rulesets.concat(path);
