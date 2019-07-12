@@ -19,17 +19,17 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   const isWin = process.platform === 'win32';
   console.log('isWin', isWin);
   const manulifeConfiguration = isWin ? 
-    `${dir}\..\config\manulife` :
+    `${dir}\\..\\config\\manulife` :
     `${dir}/../config/manulife`;
   console.log('configuration', manulifeConfiguration);
   const files = await fs.readdirSync(manulifeConfiguration);
   let rulesets = isWin ? 
-    `-R ${dir}\..\..\ruleset.xml` :
+    `-R ${dir}\\..\\..\\ruleset.xml` :
     `-R ${dir}/../../ruleset.xml`;
   console.log('rulesets', rulesets);
   files.forEach((file: any) => {
     const path = isWin ? 
-      `,${dir}\..\config\manulife/${file}` :
+      `,${dir}\\..\\config\\manulife/${file}` :
       `,${dir}/../config/manulife/${file}`;
     console.log('path', path);
     rulesets = rulesets.concat(path);
@@ -43,7 +43,7 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
 
   const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
   const cmd = isWin ? 
-    `${dir}\..\..\pmd-bin-6.16.0\bin\pmd.bat ${cmdArgs}`:
+    `${dir}\\..\\..\\pmd-bin-6.16.0\\bin\\pmd.bat ${cmdArgs}`:
     `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
   console.log('cmd', cmd);
   const spawn = exec(cmd);

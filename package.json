@@ -126,11 +126,6 @@
    "touchBar": [
     {
      "when": "resourceLangId == 'apex'",
-     "command": "extension.APLint:RunOnFile",
-     "group": "aplint"
-    },
-    {
-     "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:RunOnDirectory",
      "group": "aplint"
     },
