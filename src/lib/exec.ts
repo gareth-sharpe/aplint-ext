@@ -33,9 +33,9 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
   const isWin = process.platform === 'win32';
   console.log('isWin', isWin);
-  console.log('cmd', `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}`)
+  console.log('cmd', `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}`);
   const cmd = isWin ? 
-    `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}`:
+    `${dir}\..\..\pmd-bin-6.16.0\bin\pmd.bat ${cmdArgs}`:
     `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
   const spawn = exec(cmd);
   

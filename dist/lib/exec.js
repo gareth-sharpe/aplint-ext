@@ -38,7 +38,7 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
     console.log('isWin', isWin);
     console.log('cmd', `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}`);
     const cmd = isWin ?
-        `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}` :
+        `${dir}\..\..\pmd-bin-6.16.0\bin\pmd.bat ${cmdArgs}` :
         `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
     const spawn = child_process_1.exec(cmd);
     let data = '';
