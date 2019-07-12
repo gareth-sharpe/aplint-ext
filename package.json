@@ -3,7 +3,7 @@
  "displayName": "APLint",
  "publisher": "APLint",
  "icon": "assets/logo.png",
- "version": "1.0.9",
+ "version": "1.0.10",
  "description": "VSCode extension for APLint",
  "main": "dist/index.js",
  "scripts": {
