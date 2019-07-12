@@ -25,8 +25,13 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
     const manulifeConfiguration = `${dir}/../config/manulife/`;
     const files = yield fs.readdirSync(manulifeConfiguration);
     let rulesets = `-R ${dir}/../../ruleset.xml`;
+    const isWin = process.platform === 'win32';
     files.forEach((file) => {
-        rulesets = rulesets.concat(`,${dir}/../config/manulife/${file}`);
+        const path = isWin ? 
+            `,${dir}\..\config\manulife\${file}` :
+            `,${dir}/../config/manulife/${file}`;
+        console.log('path', path);
+        rulesets = rulesets.concat(path);
     });
     const targetFlag = `-d ${path}`;
     const rulesetFlag = configuredRulesets.length ?
@@ -34,12 +39,11 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
         rulesets;
     const formatFlag = `-f csv`;
     const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
-    const isWin = process.platform === 'win32';
     console.log('isWin', isWin);
-    console.log('cmd', `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}`);
-    const cmd = isWin ?
+    const cmd = isWin ? 
         `${dir}\..\..\pmd-bin-6.16.0\bin\pmd.bat ${cmdArgs}` :
         `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
+    console.log('cmd', cmd);
     const spawn = child_process_1.exec(cmd);
     let data = '';
     data = yield new Promise((resolve, reject) => {
