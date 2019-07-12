@@ -22,13 +22,20 @@ const fs = require('fs');
 exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () {
     const dir = __dirname;
     let configuredRulesets = vscode_1.workspace.getConfiguration().get('aplint.customRulesets');
-    const manulifeConfiguration = `${dir}/../config/manulife/`;
-    const files = yield fs.readdirSync(manulifeConfiguration);
-    let rulesets = `-R ${dir}/../../ruleset.xml`;
     const isWin = process.platform === 'win32';
+    console.log('isWin', isWin);
+    const manulifeConfiguration = isWin ?
+        `${dir}\..\config\manulife` :
+        `${dir}/../config/manulife`;
+    console.log('configuration', manulifeConfiguration);
+    const files = yield fs.readdirSync(manulifeConfiguration);
+    let rulesets = isWin ?
+        `-R ${dir}\..\..\ruleset.xml` :
+        `-R ${dir}/../../ruleset.xml`;
+    console.log('rulesets', rulesets);
     files.forEach((file) => {
-        const path = isWin ? 
-            `,${dir}\..\config\manulife\${file}` :
+        const path = isWin ?
+            `,${dir}\..\config\manulife/${file}` :
             `,${dir}/../config/manulife/${file}`;
         console.log('path', path);
         rulesets = rulesets.concat(path);
@@ -39,8 +46,7 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
         rulesets;
     const formatFlag = `-f csv`;
     const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
-    console.log('isWin', isWin);
-    const cmd = isWin ? 
+    const cmd = isWin ?
         `${dir}\..\..\pmd-bin-6.16.0\bin\pmd.bat ${cmdArgs}` :
         `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
     console.log('cmd', cmd);

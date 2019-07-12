@@ -16,12 +16,23 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   const dir = __dirname;
   let configuredRulesets: string[] | undefined = workspace.getConfiguration().get('aplint.customRulesets');
 
-  const manulifeConfiguration = `${dir}/../config/manulife/`;
-
+  const isWin = process.platform === 'win32';
+  console.log('isWin', isWin);
+  const manulifeConfiguration = isWin ? 
+    `${dir}\..\config\manulife` :
+    `${dir}/../config/manulife`;
+  console.log('configuration', manulifeConfiguration);
   const files = await fs.readdirSync(manulifeConfiguration);
-  let rulesets = `-R ${dir}/../../ruleset.xml`;
+  let rulesets = isWin ? 
+    `-R ${dir}\..\..\ruleset.xml` :
+    `-R ${dir}/../../ruleset.xml`;
+  console.log('rulesets', rulesets);
   files.forEach((file: any) => {
-    rulesets = rulesets.concat(`,${dir}/../config/manulife/${file}`);
+    const path = isWin ? 
+      `,${dir}\..\config\manulife/${file}` :
+      `,${dir}/../config/manulife/${file}`;
+    console.log('path', path);
+    rulesets = rulesets.concat(path);
   });
 
   const targetFlag = `-d ${path}`;
@@ -31,12 +42,10 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   const formatFlag = `-f csv`;
 
   const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
-  const isWin = process.platform === 'win32';
-  console.log('isWin', isWin);
-  console.log('cmd', `${dir}/../../pmd-bin-6.16.0/bin/pmd.bat ${cmdArgs}`);
   const cmd = isWin ? 
     `${dir}\..\..\pmd-bin-6.16.0\bin\pmd.bat ${cmdArgs}`:
     `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
+  console.log('cmd', cmd);
   const spawn = exec(cmd);
   
   let data: string = '';
