@@ -7,15 +7,15 @@
  "description": "VSCode extension for APLint",
  "main": "dist/index.js",
  "scripts": {
-  "vscode:prepublish": "npm run compile",
-  "compile": "tsc -p ./ && npm run move",
+  "vscode:prepublish": "webpack --mode production",
+  "compile": "webpack --mode none && npm run move",
+  "watch": "webpack --mode none --watch",
+  "test-compile": "tsc -p ./",
   "lint": "tslint -p ./",
-  "watch": "tsc -watch -p ./",
   "package": "vsce package",
-  "move": "npm run move:readme && npm run  move:assets && npm run move:config && npm run move:docs",
+  "move": "npm run move:readme && npm run move:assets && npm run move:docs",
   "move:readme": "cp README.md ./dist/README.md",
   "move:assets": "cp -R assets ./dist",
-  "move:config": "cp -R config ./dist",
   "move:docs": "cp -R src/docs ./dist",
   "doc": "typedoc --excludeExternals --ignoreCompilerErrors --out docs/ --name sf-core-aplint-ext",
   "doc:open": "npm run doc && node ./src/utils/docs.ts"
@@ -185,8 +185,8 @@
  "devDependencies": {
   "ts-loader": "^6.0.4",
   "vscode": "^1.1.35",
-  "webpack": "^4.35.2",
-  "webpack-cli": "^3.3.5",
+  "webpack": "^4.35.3",
+  "webpack-cli": "^3.3.6",
   "webpack-plugin-copy": "^1.0.1"
  }
 }

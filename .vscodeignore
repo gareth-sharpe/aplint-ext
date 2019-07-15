@@ -4,6 +4,8 @@ __tests__/
 docs/
 out/
 src/
+node_modules/
 tsconfig.json
 tslint.json
 sf-core-aplint-ext-*.vsix
+webpack.config.js

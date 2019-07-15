@@ -21,6 +21,7 @@ const fs = require('fs');
  */
 exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () {
     const dir = __dirname;
+    console.log('dir', dir);
     let configuredRulesets = vscode_1.workspace.getConfiguration().get('aplint.customRulesets');
     const isWin = process.platform === 'win32';
     console.log('isWin', isWin);
@@ -30,13 +31,13 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
     console.log('configuration', manulifeConfiguration);
     const files = yield fs.readdirSync(manulifeConfiguration);
     let rulesets = isWin ?
-        `-R ${dir}\\..\\..\\ruleset.xml` :
-        `-R ${dir}/../../ruleset.xml`;
+        `-R ${dir}\\..\\ruleset.xml` :
+        `-R ${dir}/../ruleset.xml`;
     console.log('rulesets', rulesets);
     files.forEach((file) => {
         const path = isWin ?
-            `,${dir}\\..\\config\\manulife\\${file}` :
-            `,${dir}/../config/manulife/${file}`;
+            `,${manulifeConfiguration}\\${file}` :
+            `,${manulifeConfiguration}/${file}`;
         console.log('path', path);
         rulesets = rulesets.concat(path);
     });
@@ -46,21 +47,32 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
         rulesets;
     const formatFlag = `-f csv`;
     const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
+    console.log('args', cmdArgs);
     const cmd = isWin ?
-        `${dir}\\..\\..\\pmd-bin-6.16.0\\bin\\pmd.bat ${cmdArgs}` :
-        `${dir}/../../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
+        `${dir}\\..\\pmd-bin-6.16.0\\bin\\pmd.bat ${cmdArgs}` :
+        `${dir}/../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
     console.log('cmd', cmd);
-    const spawn = child_process_1.exec(cmd);
+    let spawn;
+    try {
+        spawn = child_process_1.exec(cmd);
+        console.log('spawn', spawn);
+    }
+    catch (e) {
+        console.log('e', e);
+    }
     let data = '';
     data = yield new Promise((resolve, reject) => {
         spawn.stdout.on('data', (line) => {
             data += line;
-            console.log('line', line);
+        });
+        spawn.addListener('error', (e) => {
+            console.log('error', e);
+            reject('APLint failed on error.');
         });
         spawn.addListener('exit', (e) => {
             if (e !== 0 && e !== 4) {
                 console.log('e', e);
-                reject('APLint failed.');
+                reject('APLint failed on exit.');
             }
             resolve(data);
         });
