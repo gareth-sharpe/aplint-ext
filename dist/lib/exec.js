@@ -63,7 +63,11 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
     let data = '';
     data = yield new Promise((resolve, reject) => {
         spawn.stdout.on('data', (line) => {
+            console.log('line', line);
             data += line;
+        });
+        spawn.stderr.on('data', (message) => {
+            console.log('stderr message', message);
         });
         spawn.addListener('error', (e) => {
             console.log('error', e);
@@ -72,6 +76,7 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
         spawn.addListener('exit', (e) => {
             if (e !== 0 && e !== 4) {
                 console.log('e', e);
+                console.log('data', data);
                 reject('APLint failed on exit.');
             }
             resolve(data);

@@ -51,7 +51,8 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   let spawn: ChildProcess;
   try {
     spawn = exec(cmd);
-    console.log('spawn', spawn);
+    console.log('spawn');
+    console.log(spawn);
   } catch (e) {
     console.log('e', e);
   }
@@ -61,13 +62,15 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
     spawn.stdout!.on('data', (line) => {
       data += line;
     });
+    spawn.stderr!.on('data', (message: string) => {
+      console.log('stderr message', message);
+    });
     spawn.addListener('error', (e) => {
       console.log('error', e);
       reject('APLint failed on error.');
     });
     spawn.addListener('exit', (e) => {
       if (e !== 0 && e !== 4) {
-        console.log('e', e);
         reject('APLint failed on exit.');
       }
       resolve(data);

@@ -1,7 +1,7 @@
 import { Diagnostic, window, ViewColumn } from "vscode";
 const marked = require('marked');
 
-const fetch = require('node-fetch');
+const fetch = require('node-fetch').default;
 const NOT_FOUND = -1;
 
 interface Info {
