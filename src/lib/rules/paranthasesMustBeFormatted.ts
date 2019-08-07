@@ -1,8 +1,8 @@
 import { FILE, DESCRIPTION, LINE, PRIORITY, RULE_SET, RULE } from '../../utils/constants';
 import {
   CODE_STYLE,
-  PARANTHASES_MUST_BE_FORMATTED_DESCRIPTION,
-  PARANTHASES_MUST_BE_FORMATTED_RULE
+  PARANTHESES_MUST_BE_FORMATTED_DESCRIPTION,
+  PARANTHESES_MUST_BE_FORMATTED_RULE
 } from '../../utils/constants';
 
 /**
@@ -17,17 +17,17 @@ export const lintForParenthesesSpacing = (file: string, line: string, i: number)
   if (!line.match(/^[^\/*]+(for|while|if|switch|else if)/g)) {
     return [];
   }
-  const paranthasesMustHaveSpaceTest= /\s\(.*\)\s/g;
-  const passesParanthasesMustHaveSpaceTest = paranthasesMustHaveSpaceTest.test(line);
+  const paranthesesMustHaveSpaceTest= /\s\(.*\)\s/g;
+  const passesParanthesesMustHaveSpaceTest = paranthesesMustHaveSpaceTest.test(line);
   let results: any[] = [];
-  if (!passesParanthasesMustHaveSpaceTest) {
+  if (!passesParanthesesMustHaveSpaceTest) {
     const result = {
       [FILE]: file,
       [PRIORITY]: 3,
       [LINE]: i,
-      [DESCRIPTION]: PARANTHASES_MUST_BE_FORMATTED_DESCRIPTION,
+      [DESCRIPTION]: PARANTHESES_MUST_BE_FORMATTED_DESCRIPTION,
       [RULE_SET]: CODE_STYLE,
-      [RULE]: PARANTHASES_MUST_BE_FORMATTED_RULE,
+      [RULE]: PARANTHESES_MUST_BE_FORMATTED_RULE,
     };
     results.push(result);
   }

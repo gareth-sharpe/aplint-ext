@@ -4,7 +4,7 @@ import { FILE } from '../utils/constants';
 import { 
   lintForBraceSpacing,
   lintForClassBraceSpacing } from './rules/bracesMustBeformatted';
-import { lintForParenthesesSpacing } from './rules/paranthasesMustBeFormatted';
+import { lintForParenthesesSpacing } from './rules/paranthesesMustBeFormatted';
 import { lintForVariableSpacing } from './rules/variablesMustBeFormatted';
 import { lintForSpaceAfterComma } from './rules/spaceMustFollowComma';
 import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacing';
