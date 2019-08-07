@@ -26,7 +26,6 @@ export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
   );
   const info = getInfo(diagnostic);
   const { url, rule, custom } = info;
-  console.log(url);
   const response = await fetch(url);
   const text = await response.text();
   let html: string;
@@ -53,6 +52,9 @@ export const openRule = async (diagnostic: Diagnostic): Promise<void> => {
 const getInfo = (diagnostic: Diagnostic): Info => {
   const { code } = diagnostic;
   const splitCodes = String(code)!.split(' ');
+  if (splitCodes.length === 3) {
+    splitCodes[1] += splitCodes[2];
+  }
   const rule = splitCodes[0];
   const category = splitCodes[1];
   const categories: string[] = [

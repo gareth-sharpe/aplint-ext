@@ -14,25 +14,20 @@ const fs = require('fs');
  */
 export const execCmd = async (path: string, token?: CancellationToken): Promise<string> => {
   const dir = __dirname;
-  console.log('dir', dir);
   let configuredRulesets: string[] | undefined = workspace.getConfiguration().get('aplint.customRulesets');
 
   const isWin = process.platform === 'win32';
-  console.log('isWin', isWin);
   const manulifeConfiguration = isWin ? 
     `${dir}\\..\\config\\manulife` :
     `${dir}/../config/manulife`;
-  console.log('configuration', manulifeConfiguration);
   const files = await fs.readdirSync(manulifeConfiguration);
   let rulesets = isWin ? 
     `-R ${dir}\\..\\ruleset.xml` :
     `-R ${dir}/../ruleset.xml`;
-  console.log('rulesets', rulesets);
   files.forEach((file: any) => {
     const path = isWin ? 
       `,${manulifeConfiguration}\\${file}` :
       `,${manulifeConfiguration}/${file}`;
-    console.log('path', path);
     rulesets = rulesets.concat(path);
   });
 
@@ -43,18 +38,14 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
   const formatFlag = `-f csv`;
 
   const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
-  console.log('args', cmdArgs);
   const cmd = isWin ? 
     `${dir}\\..\\pmd-bin-6.16.0\\bin\\pmd.bat ${cmdArgs}`:
     `${dir}/../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
-  console.log('cmd', cmd);
   let spawn: ChildProcess;
   try {
     spawn = exec(cmd);
-    console.log('spawn');
-    console.log(spawn);
   } catch (e) {
-    console.log('e', e);
+    console.error('e', e);
   }
   
   let data: string = '';
@@ -63,10 +54,10 @@ export const execCmd = async (path: string, token?: CancellationToken): Promise<
       data += line;
     });
     spawn.stderr!.on('data', (message: string) => {
-      console.log('stderr message', message);
+      console.error('stderr message', message);
     });
     spawn.addListener('error', (e) => {
-      console.log('error', e);
+      console.error('error code', e);
       reject('APLint failed on error.');
     });
     spawn.addListener('exit', (e) => {

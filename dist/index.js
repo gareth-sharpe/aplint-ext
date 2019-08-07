@@ -230,24 +230,19 @@ const fs = __webpack_require__(5);
  */
 exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () {
     const dir = __dirname;
-    console.log('dir', dir);
     let configuredRulesets = vscode_1.workspace.getConfiguration().get('aplint.customRulesets');
     const isWin = process.platform === 'win32';
-    console.log('isWin', isWin);
     const manulifeConfiguration = isWin ?
         `${dir}\\..\\config\\manulife` :
         `${dir}/../config/manulife`;
-    console.log('configuration', manulifeConfiguration);
     const files = yield fs.readdirSync(manulifeConfiguration);
     let rulesets = isWin ?
         `-R ${dir}\\..\\ruleset.xml` :
         `-R ${dir}/../ruleset.xml`;
-    console.log('rulesets', rulesets);
     files.forEach((file) => {
         const path = isWin ?
             `,${manulifeConfiguration}\\${file}` :
             `,${manulifeConfiguration}/${file}`;
-        console.log('path', path);
         rulesets = rulesets.concat(path);
     });
     const targetFlag = `-d ${path}`;
@@ -256,19 +251,15 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
         rulesets;
     const formatFlag = `-f csv`;
     const cmdArgs = `${targetFlag} ${rulesetFlag} ${formatFlag}`;
-    console.log('args', cmdArgs);
     const cmd = isWin ?
         `${dir}\\..\\pmd-bin-6.16.0\\bin\\pmd.bat ${cmdArgs}` :
         `${dir}/../pmd-bin-6.16.0/bin/run.sh pmd ${cmdArgs}`;
-    console.log('cmd', cmd);
     let spawn;
     try {
         spawn = child_process_1.exec(cmd);
-        console.log('spawn');
-        console.log(spawn);
     }
     catch (e) {
-        console.log('e', e);
+        console.error('e', e);
     }
     let data = '';
     data = yield new Promise((resolve, reject) => {
@@ -276,10 +267,10 @@ exports.execCmd = (path, token) => __awaiter(this, void 0, void 0, function* () 
             data += line;
         });
         spawn.stderr.on('data', (message) => {
-            console.log('stderr message', message);
+            console.error('stderr message', message);
         });
         spawn.addListener('error', (e) => {
-            console.log('error', e);
+            console.error('error code', e);
             reject('APLint failed on error.');
         });
         spawn.addListener('exit', (e) => {
@@ -1291,7 +1282,6 @@ exports.openRule = (diagnostic) => __awaiter(this, void 0, void 0, function* () 
     const panel = vscode_1.window.createWebviewPanel('aplint', 'Rule Description', vscode_1.ViewColumn.Two);
     const info = getInfo(diagnostic);
     const { url, rule, custom } = info;
-    console.log(url);
     const response = yield fetch(url);
     const text = yield response.text();
     let html;
@@ -1318,6 +1308,9 @@ exports.openRule = (diagnostic) => __awaiter(this, void 0, void 0, function* () 
 const getInfo = (diagnostic) => {
     const { code } = diagnostic;
     const splitCodes = String(code).split(' ');
+    if (splitCodes.length === 3) {
+        splitCodes[1] += splitCodes[2];
+    }
     const rule = splitCodes[0];
     const category = splitCodes[1];
     const categories = [
