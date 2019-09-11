@@ -30,21 +30,24 @@ export const lint = async (path: string, map: Map<string, Array<Diagnostic>>) =>
     
     rl.on('line', (line: string) => {
       i++;
-      const classBraceSpacingresults = lintForClassBraceSpacing(path, line, i);
-      const variableSpacingResults = lintForVariableSpacing(path, line, i);
-      const braceSpacingResults = lintForBraceSpacing(path, line, i);
-      const parathaseSpacingResults = lintForParenthesesSpacing(path, line, i);
-      const spaceAfterCommaResults = lintForSpaceAfterComma(path, line, i);
-      const loopsSpacingResults = lintForLoopSpacing(path, line, i);
-      const noExtraSpacing = lintForExtraSpacing(path, line, i);
-      allResults = allResults.concat(
-        variableSpacingResults,
-        classBraceSpacingresults,
-        braceSpacingResults,
-        parathaseSpacingResults,
-        spaceAfterCommaResults,
-        loopsSpacingResults,
-        noExtraSpacing);
+      const trimmed = line.trim();
+      if (trimmed.slice(0, 2) !== '//' && trimmed.charAt(0) !== '*') {
+        const classBraceSpacingResults = lintForClassBraceSpacing(path, line, i);
+        // const variableSpacingResults = lintForVariableSpacing(path, line, i);
+        const braceSpacingResults = lintForBraceSpacing(path, line, i);
+        const parathaseSpacingResults = lintForParenthesesSpacing(path, line, i);
+        const spaceAfterCommaResults = lintForSpaceAfterComma(path, line, i);
+        const loopsSpacingResults = lintForLoopSpacing(path, line, i);
+        const noExtraSpacing = lintForExtraSpacing(path, line, i);
+        allResults = allResults.concat(
+          // variableSpacingResults,
+          classBraceSpacingResults,
+          braceSpacingResults,
+          parathaseSpacingResults,
+          spaceAfterCommaResults,
+          loopsSpacingResults,
+          noExtraSpacing);
+        }
     });
     rl.on('close', resolve);
   });
