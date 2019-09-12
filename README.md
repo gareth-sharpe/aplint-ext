@@ -9,15 +9,17 @@ A (soon to be) configurable linting tool for Apex and Visualforce code.
 * Generates diagnostic output to both text editor and problems terminal
 * Clear diagnostic output in problems terminal from command pallette, editor menue and touchbar (MacOS)
 * View rule definition and details from within VSCode or in your default browser (see examples for usage)
+* Preview your code documentation in a sperate browser window to ensure documentation is formatted correctly
 
 ## Usage
 
 APLint, by default, lints any Apex or Visualforce page on save. Other commands can be executed using Command-Shift-P (⌘ ⇧ P) or Ctrl-Shift-P on Windows. The currently supported comamnds are:
 
 ```
-APLint: Run On file       // runs APLint on the current file
-APLint: Run On Directory  // runs APLint on the currect directory
-APLint: Clear Problems    // clears all diagnostics
+APLint: Run On file           // runs APLint on the current file
+APLint: Run On Directory      // runs APLint on the currect directory
+APLint: Clear Problems        // clears all diagnostics
+APLint: Preview Documentation // opens a brower window with documentation preview
 ```
 
 ### Example
@@ -29,6 +31,10 @@ How to: Use APLint (with `onSave` linting enabled)
 How to: View rule documentation in VSCode
 
 ![](assets/descriptions.gif)
+
+Example: Documentation Preview
+
+![](assets/preview.png)
 
 ## Configuration
 
@@ -68,6 +74,7 @@ All rules can be found [here](https://github.com/gareth-sharpe/aplint-ext/tree/m
 
 * Custom action configuration
   * Ability to turn off onSave event
+  * Ability to disable APLint all together
 * Custom rule configuration
   * ~~Ability to provide custom ruleset~~
   * Ablity to select from multiple default rulesets
@@ -82,6 +89,7 @@ All rules can be found [here](https://github.com/gareth-sharpe/aplint-ext/tree/m
 ## Built With
 
 * [PMD Source Code Analyzer Project](https://github.com/pmd/pmd)
+* [ApexDoc](https://github.com/SalesforceFoundation/ApexDoc)
 * [NPM](https://www.npmjs.com/)
 * [VSCode Extension API](https://code.visualstudio.com/api)
 
