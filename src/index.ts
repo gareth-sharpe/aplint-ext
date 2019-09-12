@@ -1,6 +1,7 @@
 import { commands, window, workspace, languages, ExtensionContext } from 'vscode';
 import { run } from './lib/run';
 import { openRule } from './lib/open';
+import { previewDoc } from './lib/preview';
 import { DocumentationProvider } from './modules/codeActionProvider';
 
 const supportedLanguageCodes = ['apex', 'visualforce'];
@@ -32,17 +33,24 @@ export function activate(context: ExtensionContext) {
 		'extension.APLint:OpenRuleDocumentation', (diagnostic) => {
 			openRule(diagnostic);
 	});
+	const openPreviewDocumentationCommand = commands.registerCommand(
+		'extension.APLint:PreviewDocumentation', (diagnostic) => {
+			const currentPath = window.activeTextEditor!.document.fileName;
+			const i = currentPath.lastIndexOf('/');
+			const path = currentPath.slice(0, i);
+			previewDoc(path);
+	});
 
 	workspace.onDidSaveTextDocument((textDocument) => { 
 		if (isSupportedLanguage(textDocument.languageId)) {
-			// vscode.commands.executeCommand('extension.APLint:ClearProblems');
+			// commands.executeCommand('extension.APLint:ClearProblems');
 			const currentPath = window.activeTextEditor!.document.fileName; 
 			run(collection, currentPath);
 		}
 	});
 	window.onDidChangeActiveTextEditor((editor) => {
 		if (isSupportedLanguage(editor!.document.languageId)) {
-			// vscode.commands.executeCommand('extension.APLint:ClearProblems');
+			// commands.executeCommand('extension.APLint:ClearProblems');
 			const currentPath = window.activeTextEditor!.document.fileName; 
 			run(collection, currentPath);
 		} 
@@ -59,7 +67,9 @@ export function activate(context: ExtensionContext) {
 		aplintDirectoryCommand,
 		clearProblemsCommand,
 		openRuleDocumentationCommand,
-		openRuleDescription);
+		openRuleDescription,
+		openPreviewDocumentationCommand
+	);
 }
 
 export function deactivate() {}

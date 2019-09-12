@@ -5,7 +5,7 @@ import {
   lintForBraceSpacing,
   lintForClassBraceSpacing } from './rules/bracesMustBeformatted';
 import { lintForParenthesesSpacing } from './rules/paranthesesMustBeFormatted';
-import { lintForVariableSpacing } from './rules/variablesMustBeFormatted';
+// import { lintForVariableSpacing } from './rules/variablesMustBeFormatted';
 import { lintForSpaceAfterComma } from './rules/spaceMustFollowComma';
 import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacing';
 import { lintForExtraSpacing } from './rules/mustNotHaveExtraSpacing';

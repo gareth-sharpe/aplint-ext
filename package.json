@@ -52,6 +52,10 @@
    {
     "command": "extension.APLint:ClearProblems",
     "title": "APLint: Clear Problems"
+   },
+   {
+    "command": "extension.APLint:PreviewDocumentation",
+    "title": "APLint: Preview Documentation"
    }
   ],
   "configuration": {
@@ -121,6 +125,11 @@
      "when": "resourceLangId == 'apex'",
      "command": "extension.APLint:ClearProblems",
      "group": "aplint"
+    },
+    {
+     "when": "resourceLangId == 'apex'",
+     "command": "extension.APLint:PreviewDocumentation",
+     "group": "aplint"
     }
    ],
    "touchBar": [
@@ -177,6 +186,7 @@
   "csv-string": "^3.1.6",
   "marked": "^0.7.0",
   "node-fetch": "^2.6.0",
+  "open": "^6.4.0",
   "opn": "^6.0.0",
   "tsdoc": "0.0.4",
   "tslint": "^5.18.0",

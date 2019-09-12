@@ -103,7 +103,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = __webpack_require__(1);
 const run_1 = __webpack_require__(2);
 const open_1 = __webpack_require__(22);
-const codeActionProvider_1 = __webpack_require__(29);
+const preview_1 = __webpack_require__(29);
+const codeActionProvider_1 = __webpack_require__(30);
 const supportedLanguageCodes = ['apex', 'visualforce'];
 const isSupportedLanguage = (langCode) => 0 <= supportedLanguageCodes.indexOf(langCode);
 const collection = vscode_1.languages.createDiagnosticCollection('aplint');
@@ -127,22 +128,28 @@ function activate(context) {
     const openRuleDocumentationCommand = vscode_1.commands.registerCommand('extension.APLint:OpenRuleDocumentation', (diagnostic) => {
         open_1.openRule(diagnostic);
     });
+    const openPreviewDocumentationCommand = vscode_1.commands.registerCommand('extension.APLint:PreviewDocumentation', (diagnostic) => {
+        const currentPath = vscode_1.window.activeTextEditor.document.fileName;
+        const i = currentPath.lastIndexOf('/');
+        const path = currentPath.slice(0, i);
+        preview_1.previewDoc(path);
+    });
     vscode_1.workspace.onDidSaveTextDocument((textDocument) => {
         if (isSupportedLanguage(textDocument.languageId)) {
-            // vscode.commands.executeCommand('extension.APLint:ClearProblems');
+            // commands.executeCommand('extension.APLint:ClearProblems');
             const currentPath = vscode_1.window.activeTextEditor.document.fileName;
             run_1.run(collection, currentPath);
         }
     });
     vscode_1.window.onDidChangeActiveTextEditor((editor) => {
         if (isSupportedLanguage(editor.document.languageId)) {
-            // vscode.commands.executeCommand('extension.APLint:ClearProblems');
+            // commands.executeCommand('extension.APLint:ClearProblems');
             const currentPath = vscode_1.window.activeTextEditor.document.fileName;
             run_1.run(collection, currentPath);
         }
     });
     const openRuleDescription = vscode_1.languages.registerCodeActionsProvider('apex', new codeActionProvider_1.DocumentationProvider(collection), { providedCodeActionKinds: codeActionProvider_1.DocumentationProvider.providedCodeActionKinds });
-    context.subscriptions.push(aplintFileCommand, aplintDirectoryCommand, clearProblemsCommand, openRuleDocumentationCommand, openRuleDescription);
+    context.subscriptions.push(aplintFileCommand, aplintDirectoryCommand, clearProblemsCommand, openRuleDocumentationCommand, openRuleDescription, openPreviewDocumentationCommand);
 }
 exports.activate = activate;
 function deactivate() { }
@@ -921,6 +928,7 @@ const diagnostics_1 = __webpack_require__(7);
 const constants_1 = __webpack_require__(8);
 const bracesMustBeformatted_1 = __webpack_require__(15);
 const paranthesesMustBeFormatted_1 = __webpack_require__(17);
+// import { lintForVariableSpacing } from './rules/variablesMustBeFormatted';
 const spaceMustFollowComma_1 = __webpack_require__(18);
 const loopsMustHaveFormattedSpacing_1 = __webpack_require__(19);
 const mustNotHaveExtraSpacing_1 = __webpack_require__(20);
@@ -944,7 +952,7 @@ exports.lint = (path, map) => __awaiter(this, void 0, void 0, function* () {
             i++;
             const trimmed = line.trim();
             if (trimmed.slice(0, 2) !== '//' && trimmed.charAt(0) !== '*') {
-                const classBraceSpacingresults = bracesMustBeformatted_1.lintForClassBraceSpacing(path, line, i);
+                const classBraceSpacingResults = bracesMustBeformatted_1.lintForClassBraceSpacing(path, line, i);
                 // const variableSpacingResults = lintForVariableSpacing(path, line, i);
                 const braceSpacingResults = bracesMustBeformatted_1.lintForBraceSpacing(path, line, i);
                 const parathaseSpacingResults = paranthesesMustBeFormatted_1.lintForParenthesesSpacing(path, line, i);
@@ -953,7 +961,7 @@ exports.lint = (path, map) => __awaiter(this, void 0, void 0, function* () {
                 const noExtraSpacing = mustNotHaveExtraSpacing_1.lintForExtraSpacing(path, line, i);
                 allResults = allResults.concat(
                 // variableSpacingResults,
-                classBraceSpacingresults, braceSpacingResults, parathaseSpacingResults, spaceAfterCommaResults, loopsSpacingResults, noExtraSpacing);
+                classBraceSpacingResults, braceSpacingResults, parathaseSpacingResults, spaceAfterCommaResults, loopsSpacingResults, noExtraSpacing);
             }
         });
         rl.on('close', resolve);
@@ -4686,6 +4694,79 @@ module.exports = require("zlib");
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const child_process_1 = __webpack_require__(4);
+const open = __webpack_require__(31);
+const fs_1 = __webpack_require__(5);
+/**
+ * Executes the ApexDoc java command with given paramaters.
+ * @author Gareth Sharpe
+ * @param {string} path The path to the directory to lint
+ * @param {CancellationToken} token The token to use to identify exec cancellation
+ * @return {Promise<string>}
+ * @async
+ */
+exports.previewDoc = (path, token) => __awaiter(this, void 0, void 0, function* () {
+    const isWin = process.platform === 'win32';
+    const sourceFlag = `-s ${path}`;
+    const targetFlag = isWin ?
+        `-t ${__dirname}\\..\\ApexDoc` :
+        `-t ${__dirname}/../ApexDoc`;
+    const cmdArgs = `${sourceFlag} ${targetFlag}`;
+    const cmd = isWin ?
+        `java -jar ${__dirname}\\..\\ApexDoc\\apexdoc.jar ${cmdArgs}` :
+        `java -jar ${__dirname}/../ApexDoc/apexdoc.jar ${cmdArgs}`;
+    console.info(cmd);
+    try {
+        yield child_process_1.execSync(cmd);
+    }
+    catch (e) {
+        console.error('e', e);
+    }
+    const docPath = isWin ?
+        `${__dirname}\\..\\ApexDoc\\ApexDocumentation\\index.html` :
+        `${__dirname}/../ApexDoc/ApexDocumentation/index.html`;
+    yield format();
+    open(docPath);
+    return;
+});
+const format = () => __awaiter(this, void 0, void 0, function* () {
+    const isWin = process.platform === 'win32';
+    const folderPath = isWin ?
+        `${__dirname}\\..\\ApexDoc\\ApexDocumentation` :
+        `${__dirname}/../ApexDoc/ApexDocumentation`;
+    const files = yield fs_1.readdirSync(folderPath);
+    const filtered = files.filter((file) => file.includes('.html'));
+    filtered.forEach((fileName) => __awaiter(this, void 0, void 0, function* () {
+        const filePath = isWin ?
+            `${folderPath}\\${fileName}` :
+            `${folderPath}/${fileName}`;
+        const file = yield fs_1.readFileSync(filePath, 'utf8');
+        const oldImage = "<img src='apex_doc_logo.png' style='border:1px solid #000;'/>";
+        const newImage = "<img src='../logo.png' style='width:80; height:80'/>";
+        let newFile = file.replace(oldImage, newImage);
+        const oldBanner = "Project Demo</h2>Check out the gitHub project at:<br/><a href='http://github.com/SalesforceFoundation/ApexDoc'>http://github.com/SalesforceFoundation/ApexDoc</a><br/></td></tr></table></div><table width='100%'>";
+        const newBanner = "APLint</h2>Check out the <a href='https://github.com/gareth-sharpe/aplint-ext'>GitHub repository</a><br/></td></tr></table></div><table width='100%'>";
+        newFile = newFile.replace(oldBanner, newBanner);
+        yield fs_1.writeFileSync(filePath, newFile);
+    }));
+});
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 const vscode_1 = __webpack_require__(1);
 /**
@@ -4749,6 +4830,197 @@ DocumentationProvider.providedCodeActionKinds = [
 ];
 exports.DocumentationProvider = DocumentationProvider;
 
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+const {promisify} = __webpack_require__(32);
+const path = __webpack_require__(33);
+const childProcess = __webpack_require__(4);
+const fs = __webpack_require__(5);
+const isWsl = __webpack_require__(34);
+
+const pAccess = promisify(fs.access);
+const pExecFile = promisify(childProcess.execFile);
+
+// Path to included `xdg-open`
+const localXdgOpenPath = path.join(__dirname, 'xdg-open');
+
+// Convert a path from WSL format to Windows format:
+// `/mnt/c/Program Files/Example/MyApp.exe` → `C:\Program Files\Example\MyApp.exe`
+const wslToWindowsPath = async path => {
+	const {stdout} = await pExecFile('wslpath', ['-w', path]);
+	return stdout.trim();
+};
+
+module.exports = async (target, options) => {
+	if (typeof target !== 'string') {
+		throw new TypeError('Expected a `target`');
+	}
+
+	options = {
+		wait: false,
+		background: false,
+		...options
+	};
+
+	let command;
+	let appArguments = [];
+	const cliArguments = [];
+	const childProcessOptions = {};
+
+	if (Array.isArray(options.app)) {
+		appArguments = options.app.slice(1);
+		options.app = options.app[0];
+	}
+
+	if (process.platform === 'darwin') {
+		command = 'open';
+
+		if (options.wait) {
+			cliArguments.push('--wait-apps');
+		}
+
+		if (options.background) {
+			cliArguments.push('--background');
+		}
+
+		if (options.app) {
+			cliArguments.push('-a', options.app);
+		}
+	} else if (process.platform === 'win32' || isWsl) {
+		command = 'cmd' + (isWsl ? '.exe' : '');
+		cliArguments.push('/c', 'start', '""', '/b');
+		target = target.replace(/&/g, '^&');
+
+		if (options.wait) {
+			cliArguments.push('/wait');
+		}
+
+		if (options.app) {
+			if (isWsl && options.app.startsWith('/mnt/')) {
+				const windowsPath = await wslToWindowsPath(options.app);
+				options.app = windowsPath;
+			}
+
+			cliArguments.push(options.app);
+		}
+
+		if (appArguments.length > 0) {
+			cliArguments.push(...appArguments);
+		}
+	} else {
+		if (options.app) {
+			command = options.app;
+		} else {
+			// When bundled by Webpack, there's no actual package file path and no local `xdg-open`.
+			const isBundled = !__dirname || __dirname === '/';
+
+			// Check if local `xdg-open` exists and is executable.
+			let exeLocalXdgOpen = false;
+			try {
+				await pAccess(localXdgOpenPath, fs.constants.X_OK);
+				exeLocalXdgOpen = true;
+			} catch (error) {}
+
+			const useSystemXdgOpen = process.versions.electron ||
+				process.platform === 'android' || isBundled || !exeLocalXdgOpen;
+			command = useSystemXdgOpen ? 'xdg-open' : localXdgOpenPath;
+		}
+
+		if (appArguments.length > 0) {
+			cliArguments.push(...appArguments);
+		}
+
+		if (!options.wait) {
+			// `xdg-open` will block the process unless stdio is ignored
+			// and it's detached from the parent even if it's unref'd.
+			childProcessOptions.stdio = 'ignore';
+			childProcessOptions.detached = true;
+		}
+	}
+
+	cliArguments.push(target);
+
+	if (process.platform === 'darwin' && appArguments.length > 0) {
+		cliArguments.push('--args', ...appArguments);
+	}
+
+	const subprocess = childProcess.spawn(command, cliArguments, childProcessOptions);
+
+	if (options.wait) {
+		return new Promise((resolve, reject) => {
+			subprocess.once('error', reject);
+
+			subprocess.once('close', exitCode => {
+				if (exitCode > 0) {
+					reject(new Error(`Exited with code ${exitCode}`));
+					return;
+				}
+
+				resolve(subprocess);
+			});
+		});
+	}
+
+	subprocess.unref();
+
+	return subprocess;
+};
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports) {
+
+module.exports = require("util");
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+module.exports = require("path");
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+const os = __webpack_require__(35);
+const fs = __webpack_require__(5);
+
+const isWsl = () => {
+	if (process.platform !== 'linux') {
+		return false;
+	}
+
+	if (os.release().includes('Microsoft')) {
+		return true;
+	}
+
+	try {
+		return fs.readFileSync('/proc/version', 'utf8').includes('Microsoft');
+	} catch (err) {
+		return false;
+	}
+};
+
+if (process.env.__IS_WSL_TEST__) {
+	module.exports = isWsl;
+} else {
+	module.exports = isWsl();
+}
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = require("os");
 
 /***/ })
 /******/ ]);
