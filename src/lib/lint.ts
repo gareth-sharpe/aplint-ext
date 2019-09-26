@@ -4,7 +4,7 @@ import { FILE } from '../utils/constants';
 // import { 
 //   lintForBraceSpacing,
 //   lintForClassBraceSpacing } from './rules/bracesMustBeformatted';
-// import { lintForParenthesesSpacing } from './rules/paranthesesMustBeFormatted';
+import { lintForParenthesesSpacing } from './rules/paranthesesMustBeFormatted';
 // import { lintForVariableSpacing } from './rules/variablesMustBeFormatted';
 import { lintForSpaceAfterComma } from './rules/spaceMustFollowComma';
 // import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacing';
@@ -35,7 +35,7 @@ export const lint = async (path: string, map: Map<string, Array<Diagnostic>>) =>
         // const classBraceSpacingResults = lintForClassBraceSpacing(path, line, i);
         // const variableSpacingResults = lintForVariableSpacing(path, line, i);
         // const braceSpacingResults = lintForBraceSpacing(path, line, i);
-        // const parathaseSpacingResults = lintForParenthesesSpacing(path, line, i);
+        const parathaseSpacingResults = lintForParenthesesSpacing(path, line, i);
         const spaceAfterCommaResults = lintForSpaceAfterComma(path, line, i);
         // const loopsSpacingResults = lintForLoopSpacing(path, line, i);
         const noExtraSpacing = lintForExtraSpacing(path, line, i);
@@ -43,7 +43,7 @@ export const lint = async (path: string, map: Map<string, Array<Diagnostic>>) =>
           // variableSpacingResults,
           // classBraceSpacingResults,
           // braceSpacingResults,
-          // parathaseSpacingResults,
+          parathaseSpacingResults,
           spaceAfterCommaResults,
           // loopsSpacingResults,
           noExtraSpacing);
