@@ -1,13 +1,13 @@
 import { Diagnostic } from 'vscode';
 import { createDiagnostic } from './diagnostics';
 import { FILE } from '../utils/constants';
-import { 
-  lintForBraceSpacing,
-  lintForClassBraceSpacing } from './rules/bracesMustBeformatted';
-import { lintForParenthesesSpacing } from './rules/paranthesesMustBeFormatted';
+// import { 
+//   lintForBraceSpacing,
+//   lintForClassBraceSpacing } from './rules/bracesMustBeformatted';
+// import { lintForParenthesesSpacing } from './rules/paranthesesMustBeFormatted';
 // import { lintForVariableSpacing } from './rules/variablesMustBeFormatted';
 import { lintForSpaceAfterComma } from './rules/spaceMustFollowComma';
-import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacing';
+// import { lintForLoopSpacing } from './rules/loopsMustHaveFormattedSpacing';
 import { lintForExtraSpacing } from './rules/mustNotHaveExtraSpacing';
 
 const { createReadStream } = require('fs');
@@ -32,20 +32,20 @@ export const lint = async (path: string, map: Map<string, Array<Diagnostic>>) =>
       i++;
       const trimmed = line.trim();
       if (trimmed.slice(0, 2) !== '//' && trimmed.charAt(0) !== '*') {
-        const classBraceSpacingResults = lintForClassBraceSpacing(path, line, i);
+        // const classBraceSpacingResults = lintForClassBraceSpacing(path, line, i);
         // const variableSpacingResults = lintForVariableSpacing(path, line, i);
-        const braceSpacingResults = lintForBraceSpacing(path, line, i);
-        const parathaseSpacingResults = lintForParenthesesSpacing(path, line, i);
+        // const braceSpacingResults = lintForBraceSpacing(path, line, i);
+        // const parathaseSpacingResults = lintForParenthesesSpacing(path, line, i);
         const spaceAfterCommaResults = lintForSpaceAfterComma(path, line, i);
-        const loopsSpacingResults = lintForLoopSpacing(path, line, i);
+        // const loopsSpacingResults = lintForLoopSpacing(path, line, i);
         const noExtraSpacing = lintForExtraSpacing(path, line, i);
         allResults = allResults.concat(
           // variableSpacingResults,
-          classBraceSpacingResults,
-          braceSpacingResults,
-          parathaseSpacingResults,
+          // classBraceSpacingResults,
+          // braceSpacingResults,
+          // parathaseSpacingResults,
           spaceAfterCommaResults,
-          loopsSpacingResults,
+          // loopsSpacingResults,
           noExtraSpacing);
         }
     });
