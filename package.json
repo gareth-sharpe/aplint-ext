@@ -185,7 +185,7 @@
   "@types/webpack": "^4.4.34",
   "csv-string": "^3.1.6",
   "marked": "^0.7.0",
-  "node-fetch": "^2.6.0",
+  "node-fetch": "^2.6.7",
   "open": "^6.4.0",
   "opn": "^6.0.0",
   "tsdoc": "0.0.4",
